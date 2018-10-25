@@ -6,20 +6,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background ="#ffff">
+    android:background ="#ffffff">
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/menu_button"
+        android:src="@drawable/menu_button"
+        android:scaleX=".5"
+        android:scaleY=".5"
+        android:background="@android:color/white"/>
+
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/control_panel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:background="#E5303030"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.454"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/menu_button"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.97">
 
@@ -28,36 +38,32 @@
             android:layout_margin="@dimen/switch_margin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="0dp"
             android:text="@string/open_door"
-            android:textColor="@android:color/white"/>
+            android:textColor="@color/ButtonTextColor" />
 
         <Switch
             android:id="@+id/roofswitch"
             android:layout_margin="@dimen/switch_margin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="0dp"
             android:text="@string/open_roof"
-            android:textColor="@android:color/white"/>
+            android:textColor="@color/ButtonTextColor" />
 
         <Switch
             android:id="@+id/extendpadswitch"
             android:layout_margin="@dimen/switch_margin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="0dp"
             android:text="@string/extend_pad"
-            android:textColor="@android:color/white"/>
+            android:textColor="@color/ButtonTextColor" />
 
         <Switch
             android:id="@+id/raisepadswitch"
             android:layout_margin="@dimen/switch_margin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="0dp"
             android:text="@string/raise_pad"
-            android:textColor="@android:color/white"/>
+            android:textColor="@color/ButtonTextColor" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
