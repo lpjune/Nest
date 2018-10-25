@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Nestapp</string>
+    <string name="open_door">Open Door</string>
+    <string name="open_roof">Open Roof</string>
+    <string name="extend_pad">Extend Pad</string>
+    <string name="raise_pad">Raise Pad</string>
 </resources>
