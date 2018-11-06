@@ -7,6 +7,8 @@
     tools:context=".MainActivity"
     tools:layout_editor_absoluteY="25dp">
 
+
+
     <VideoView
         android:id="@+id/videoView"
         android:layout_width="wrap_content"
@@ -164,8 +166,6 @@
         app:layout_constraintVertical_bias="1.0"
         android:alpha="0.5"
         />
-
-
 
 
 </android.support.constraint.ConstraintLayout>
