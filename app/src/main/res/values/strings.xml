@@ -4,4 +4,6 @@
     <string name="open_roof">Open Roof</string>
     <string name="extend_pad">Extend Pad</string>
     <string name="raise_pad">Raise Pad</string>
+    <string name="menu_connect">Connect</string>
+    <string name="menu_settings">Settings</string>
 </resources>
