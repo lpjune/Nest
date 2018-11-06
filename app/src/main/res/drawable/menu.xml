@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/buttonClicked" />
+            <size android:width="200dp" android:height="80dp" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/buttonNotClicked" />
+            <size android:width="200dp" android:height="40dp"/>
+        </shape>
+    </item>
+</selector>
+
+<!--    <android.support.constraint.ConstraintLayout tools:layout_editor_absoluteX="16dp" tools:layout_editor_absoluteY="111dp" android:layout_width="wrap_content" android:layout_height="wrap_content">
+
+        <Button android:id="@+id/button" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Button" />
+
+        <Button android:id="@+id/button2" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@+id/button" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Button" />
+
+        <Button android:id="@+id/button3" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@+id/button2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Button" />
+    </android.support.constraint.ConstraintLayout>-->
