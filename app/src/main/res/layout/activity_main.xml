@@ -84,7 +84,7 @@
             android:textColor="@color/ButtonTextColor"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/roofSwitch"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -102,7 +102,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/extendPadSwitch"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toEndOf="@+id/doorsSwitch"
             app:layout_constraintTop_toTopOf="parent"
             />
@@ -138,8 +138,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/extendPadSwitch"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
 
     <!--Burger Menu Button-->
@@ -194,9 +193,7 @@
             android:padding="0dp"
             android:text="@string/menu_connect"
             android:textColor="@color/ButtonTextColor"
-            android:visibility="gone"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="57dp" />
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/menuSettingsBtn"
@@ -207,15 +204,13 @@
             android:padding="0dp"
             android:text="@string/menu_settings"
             android:textColor="@color/ButtonTextColor"
-            android:visibility="gone"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="93dp" />
+            android:visibility="gone" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="125dp"
-        android:layout_height="174dp"
+        android:layout_height="0dp"
         android:layout_marginBottom="15dp"
         android:layout_marginTop="15dp"
         android:background="@color/buttonNotClicked"
