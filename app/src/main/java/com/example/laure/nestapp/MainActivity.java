@@ -4,9 +4,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
-    private Button burgerButton, menuSettingsButton, menuConnectButton;
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, Switch.OnCheckedChangeListener{
+    private Button burgerButton, menuSettingsButton, menuConnectButton, next_button, back_button, systemHaltButton;
+    private Switch doorsSwitch, roofSwitch, extendPadSwitch, raisePadSwitch;
 
 
     @Override
@@ -14,13 +18,46 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        next_button = (Button)findViewById(R.id.next_button);
+        back_button = (Button)findViewById(R.id.back_button);
         burgerButton = (Button)findViewById(R.id.burgerButton);
         menuConnectButton = (Button)findViewById(R.id.menuConnectBtn);
         menuSettingsButton = (Button)findViewById(R.id.menuSettingsBtn);
+        systemHaltButton = (Button)findViewById(R.id.systemHaltButton);
 
-        burgerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        doorsSwitch = (Switch)findViewById(R.id.doorsSwitch);
+        roofSwitch = (Switch)findViewById(R.id.roofSwitch);
+        extendPadSwitch = (Switch)findViewById(R.id.extendPadSwitch);
+        raisePadSwitch = (Switch)findViewById(R.id.raisePadSwitch);
+
+        next_button.setOnClickListener(this);
+        back_button.setOnClickListener(this);
+        burgerButton.setOnClickListener(this);
+        menuSettingsButton.setOnClickListener(this);
+        menuConnectButton.setOnClickListener(this);
+        systemHaltButton.setOnClickListener(this);
+
+        doorsSwitch.setOnCheckedChangeListener(this);
+        roofSwitch.setOnCheckedChangeListener(this);
+        extendPadSwitch.setOnCheckedChangeListener(this);
+        raisePadSwitch.setOnCheckedChangeListener(this);
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        String request = "";
+        switch (v.getId()){
+
+            case R.id.next_button:
+                request = "next_button";
+                break;
+            case R.id.back_button:
+                request = "back_button";
+                break;
+            case R.id.burgerButton:
+
+                //Show or hide menu
                 if (menuConnectButton.getVisibility() == View.GONE){
                     menuConnectButton.setVisibility(View.VISIBLE);
                     menuSettingsButton.setVisibility(View.VISIBLE);
@@ -28,8 +65,47 @@ public class MainActivity extends AppCompatActivity {
                     menuConnectButton.setVisibility(View.GONE);
                     menuSettingsButton.setVisibility(View.GONE);
                 }
-            }
-        });
 
+                request = "burgerButton";
+                break;
+            case R.id.menuConnectBtn:
+                request = "menuConnectBtn";
+                break;
+            case R.id.menuSettingsBtn:
+                request = "menuSettingsBtn";
+                break;
+            case R.id.systemHaltButton:
+                request = "systemHaltButton";
+                break;
+        }
+
+        //SEND REQUEST HERE
+        sendRequest(request);
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        String request = "";
+        switch(buttonView.getId()){
+            case R.id.doorsSwitch:
+                request = "doorsSwitch";
+                break;
+            case R.id.roofSwitch:
+                request = "roofSwitch";
+                break;
+            case R.id.extendPadSwitch:
+                request = "extendPadSwitch";
+                break;
+            case R.id.raisePadSwitch:
+                request = "raisePadSwitch";
+                break;
+        }
+
+        //SEND REQUEST HERE
+        sendRequest(request);
+    }
+
+    private void sendRequest(String requestCode){
+        Toast.makeText(this,requestCode,Toast.LENGTH_SHORT).show();
     }
 }
