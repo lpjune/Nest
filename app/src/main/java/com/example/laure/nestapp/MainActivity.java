@@ -94,22 +94,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         String request = "";
+        String checked = Boolean.toString(isChecked);
 
         // Change Request Code/ Request Parameters
         switch(buttonView.getId()){
             case R.id.doorsSwitch:
-                request = "doorsSwitch";
+                request = "doorsSwitch ";
                 break;
             case R.id.roofSwitch:
-                request = "roofSwitch";
+                request = "roofSwitch ";
                 break;
             case R.id.extendPadSwitch:
-                request = "extendPadSwitch";
+                request = "extendPadSwitch ";
                 break;
             case R.id.raisePadSwitch:
-                request = "raisePadSwitch";
+                request = "raisePadSwitch ";
                 break;
         }
+
+        request += checked;
 
         //SEND REQUEST HERE
         sendRequest(request);
