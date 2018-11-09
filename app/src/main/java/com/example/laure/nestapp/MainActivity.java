@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Button initializers
         next_button = (Button)findViewById(R.id.next_button);
         back_button = (Button)findViewById(R.id.back_button);
         burgerButton = (Button)findViewById(R.id.burgerButton);
@@ -25,11 +26,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         menuSettingsButton = (Button)findViewById(R.id.menuSettingsBtn);
         systemHaltButton = (Button)findViewById(R.id.systemHaltButton);
 
+        // Switch initializers
         doorsSwitch = (Switch)findViewById(R.id.doorsSwitch);
         roofSwitch = (Switch)findViewById(R.id.roofSwitch);
         extendPadSwitch = (Switch)findViewById(R.id.extendPadSwitch);
         raisePadSwitch = (Switch)findViewById(R.id.raisePadSwitch);
 
+        // Button OnClickListeners
         next_button.setOnClickListener(this);
         back_button.setOnClickListener(this);
         burgerButton.setOnClickListener(this);
@@ -37,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         menuConnectButton.setOnClickListener(this);
         systemHaltButton.setOnClickListener(this);
 
+        /// Switch OnClickListeners
         doorsSwitch.setOnCheckedChangeListener(this);
         roofSwitch.setOnCheckedChangeListener(this);
         extendPadSwitch.setOnCheckedChangeListener(this);
@@ -47,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         String request = "";
+
+        // Change Request Code/ Request Parameters
         switch (v.getId()){
 
             case R.id.next_button:
@@ -86,6 +92,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         String request = "";
+
+        // Change Request Code/ Request Parameters
         switch(buttonView.getId()){
             case R.id.doorsSwitch:
                 request = "doorsSwitch";
