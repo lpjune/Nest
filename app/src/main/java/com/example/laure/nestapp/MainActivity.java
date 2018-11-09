@@ -9,6 +9,8 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, Switch.OnCheckedChangeListener{
+
+    // Button/Switch declaration
     private Button burgerButton, menuSettingsButton, menuConnectButton, next_button, back_button, systemHaltButton;
     private Switch doorsSwitch, roofSwitch, extendPadSwitch, raisePadSwitch;
 
