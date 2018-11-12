@@ -11,7 +11,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, Switch.OnCheckedChangeListener{
 
     // Button/Switch declaration
-    private Button burgerButton, menuSettingsButton, menuConnectButton, next_button, back_button, systemHaltButton;
+    private Button burgerButton, menuSettingsButton, menuConnectButton, nextButton, backButton, systemHaltButton;
     private Switch doorsSwitch, roofSwitch, extendPadSwitch, raisePadSwitch;
 
 
@@ -21,8 +21,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         // Button initializers
-        next_button = (Button)findViewById(R.id.nextButton);
-        back_button = (Button)findViewById(R.id.backButton);
+        nextButton = (Button)findViewById(R.id.nextButton);
+        backButton = (Button)findViewById(R.id.backButton);
         burgerButton = (Button)findViewById(R.id.burgerButton);
         menuConnectButton = (Button)findViewById(R.id.menuConnectBtn);
         menuSettingsButton = (Button)findViewById(R.id.menuSettingsBtn);
@@ -35,8 +35,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         raisePadSwitch = (Switch)findViewById(R.id.raisePadSwitch);
 
         // Button OnClickListeners
-        next_button.setOnClickListener(this);
-        back_button.setOnClickListener(this);
+        nextButton.setOnClickListener(this);
+        backButton.setOnClickListener(this);
         burgerButton.setOnClickListener(this);
         menuSettingsButton.setOnClickListener(this);
         menuConnectButton.setOnClickListener(this);
@@ -58,10 +58,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()){
 
             case R.id.nextButton:
-                request = "next_button";
+                request = "nextButton";
                 break;
             case R.id.backButton:
-                request = "back_button";
+                request = "backButton";
                 break;
             case R.id.burgerButton:
 
