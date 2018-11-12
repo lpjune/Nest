@@ -8,17 +8,17 @@
     tools:context=".MainActivity"
     tools:layout_editor_absoluteY="25dp">
 
-
+    <!--Temporarily commenting this out because it gets in the way-->
     <VideoView
-        android:id="@+id/videoView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+    android:id="@+id/videoView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="1.0"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="1.0" />
 
     <!--Top Bar-->
     <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -37,34 +37,34 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Weather: XXX XXX"
-                android:layout_weight=".2"/>
+                android:layout_weight=".2"
+                android:text="Weather: XXX XXX" />
 
             <Button
                 android:id="@+id/backButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight=".2"
                 android:text="@string/back_button"
-                android:textSize="10dp"
-                android:layout_weight=".2"/>
+                android:textSize="10dp" />
 
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight=".2"/>
+                android:layout_weight=".2" />
 
             <Button
                 android:id="@+id/nextButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight=".2"
                 android:text="@string/next_button"
-                android:textSize="10dp"
-                android:layout_weight=".2"/>
+                android:textSize="10dp" />
 
             <android.support.v4.widget.Space
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight=".2"/>
+                android:layout_weight=".2" />
         </LinearLayout>
 
     </android.support.constraint.ConstraintLayout>
@@ -83,8 +83,7 @@
         android:background="@color/buttonNotClicked"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/systemHaltButton"
-        app:layout_constraintStart_toEndOf="@+id/burgerButton"
-        >
+        app:layout_constraintStart_toEndOf="@+id/burgerButton">
 
 
         <Switch
@@ -119,8 +118,7 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toEndOf="@+id/doorsSwitch"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Switch
             android:id="@+id/extendPadSwitch"
@@ -136,8 +134,7 @@
             app:layout_constraintEnd_toStartOf="@+id/raisePadSwitch"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/roofSwitch"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Switch
             android:id="@+id/raisePadSwitch"
@@ -163,22 +160,22 @@
         android:layout_height="48dp"
         android:layout_marginBottom="16dp"
         android:layout_marginStart="16dp"
+        android:alpha=".75"
         android:background="@drawable/hamburger_button"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/control_panel"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/control_panel"
-        app:layout_constraintVertical_bias="0.0"
-        android:alpha=".75"
-        />
+        app:layout_constraintVertical_bias="0.0" />
 
     <!--System Halt Button-->
     <Button
         android:id="@+id/systemHaltButton"
-        android:layout_width="87dp"
-        android:layout_height="87dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/system_halt_button"
         android:padding="0dp"
         android:text="@string/system_halt"
@@ -186,9 +183,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        />
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
     <!--Burger Menu-->
     <LinearLayout
@@ -223,17 +218,40 @@
             android:visibility="gone" />
     </LinearLayout>
 
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="100dp" />
+
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/logTextView"
         android:layout_width="125dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="15dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginBottom="@dimen/log_margin"
+        android:layout_marginTop="@dimen/log_margin"
         android:background="@color/buttonNotClicked"
-        android:text="TextView"
+        android:visibility="gone"
+        android:text="Test log. The drone took off. Yay!!"
         android:textColor="@color/ButtonTextColor"
-        app:layout_constraintBottom_toTopOf="@+id/systemHaltButton"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/camera_chan" />
+
+    <Button
+        android:id="@+id/logButton"
+        android:layout_width="16dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/log_margin"
+        android:layout_marginEnd="0dp"
+        android:layout_marginTop="@dimen/log_margin"
+        android:background="@drawable/menu"
+        android:padding="0dp"
+        android:text="«"
+        android:textColor="@color/ButtonTextColor"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintEnd_toStartOf="@+id/logTextView"
         app:layout_constraintTop_toBottomOf="@+id/camera_chan" />
 
 

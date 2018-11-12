@@ -6,12 +6,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, Switch.OnCheckedChangeListener{
 
     // Button/Switch declaration
-    private Button burgerButton, menuSettingsButton, menuConnectButton, nextButton, backButton, systemHaltButton;
+    private TextView logTextView;
+    private Button burgerButton, menuSettingsButton, menuConnectButton, nextButton, backButton, systemHaltButton, logButton;
     private Switch doorsSwitch, roofSwitch, extendPadSwitch, raisePadSwitch;
 
 
@@ -20,6 +22,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // TextView initializers
+        logTextView = (TextView) findViewById(R.id.logTextView);
+
         // Button initializers
         nextButton = (Button)findViewById(R.id.nextButton);
         backButton = (Button)findViewById(R.id.backButton);
@@ -27,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         menuConnectButton = (Button)findViewById(R.id.menuConnectBtn);
         menuSettingsButton = (Button)findViewById(R.id.menuSettingsBtn);
         systemHaltButton = (Button)findViewById(R.id.systemHaltButton);
+        logButton = (Button)findViewById(R.id.logButton);
 
         // Switch initializers
         doorsSwitch = (Switch)findViewById(R.id.doorsSwitch);
@@ -41,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         menuSettingsButton.setOnClickListener(this);
         menuConnectButton.setOnClickListener(this);
         systemHaltButton.setOnClickListener(this);
+        logButton.setOnClickListener(this);
 
         /// Switch OnClickListeners
         doorsSwitch.setOnCheckedChangeListener(this);
@@ -84,6 +91,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.systemHaltButton:
                 request = "systemHaltButton";
+                break;
+            case R.id.logButton:
+                request = "logButton";
+                if (logTextView.getVisibility() == View.GONE){
+                    logTextView.setVisibility(View.VISIBLE);
+                    logButton.setText("»");
+                } else {
+                    logTextView.setVisibility(View.GONE);
+                    logButton.setText("«");
+                }
+
                 break;
         }
 
