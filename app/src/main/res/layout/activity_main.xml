@@ -59,14 +59,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight=".1"
-                    android:checked="true" />
+                    android:checked="true"
+                    android:enabled="false"/>
 
                 <RadioButton
                     android:id="@+id/next_dot"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight=".1"
-                    android:checked="false" />
+                    android:enabled="false"/>
             </RadioGroup>
 
             <Button

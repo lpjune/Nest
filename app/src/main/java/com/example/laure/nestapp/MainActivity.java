@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button burgerButton, menuSettingsButton, menuConnectButton, nextButton, backButton, systemHaltButton, logButton;
     private Switch doorsSwitch, roofSwitch, extendPadSwitch, raisePadSwitch;
     private RadioButton backDot, nextDot;
-    private int cam = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         menuSettingsButton = (Button)findViewById(R.id.menuSettingsBtn);
         systemHaltButton = (Button)findViewById(R.id.systemHaltButton);
         logButton = (Button)findViewById(R.id.logButton);
+        RadioGroup dotGroup = (RadioGroup)findViewById(R.id.rgroup);
         backDot = (RadioButton)findViewById(R.id.back_dot);
         nextDot = (RadioButton)findViewById(R.id.next_dot);
 
@@ -60,7 +61,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         roofSwitch.setOnCheckedChangeListener(this);
         extendPadSwitch.setOnCheckedChangeListener(this);
         raisePadSwitch.setOnCheckedChangeListener(this);
-
     }
 
     @Override
@@ -68,23 +68,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String request = "";
 
         // Change Request Code/ Request Parameters
-        cam = 1;
         switch (v.getId()){
 
             case R.id.backButton:
                 request = "backButton";
-                if(cam == 2){
-                    cam--;
-                    backDot.setSelected(true);
-                }
+                nextDot.setChecked(false);
+                backDot.setChecked(true);
                 break;
 
             case R.id.nextButton:
                 request = "nextButton";
-                if(cam == 1){
-                    cam++;
-                    nextDot.setSelected(true);
-                }
+                backDot.setChecked(false);
+                nextDot.setChecked(true);
                 break;
 
             case R.id.burgerButton:
