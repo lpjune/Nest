@@ -6,4 +6,7 @@
     <string name="raise_pad">Raise Pad</string>
     <string name="menu_connect">Connect</string>
     <string name="menu_settings">Settings</string>
+    <string name="back_button">Back</string>
+    <string name="next_button">Next</string>
+
 </resources>

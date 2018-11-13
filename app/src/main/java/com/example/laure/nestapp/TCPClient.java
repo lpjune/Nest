@@ -15,7 +15,7 @@ import java.net.Socket;
 
 public class TCPClient {
 
-    // server IP
+    // server IP IPv4
     public static final String SERVER_IP = "192.168.0.100";
     // server port
     public static final int SERVER_PORT = 4444;
