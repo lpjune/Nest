@@ -7,9 +7,15 @@
     <string name="menu_connect">Connect</string>
     <string name="menu_settings">Settings</string>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <string name="back_button">Back</string>
     <string name="next_button">Next</string>
 
+||||||| merged common ancestors
+=======
+    <string name="back_button">Back</string>
+    <string name="next_button">Next</string>
+>>>>>>> 788416c3204632e9ceee5063c8f0e38cef4aab77
 ||||||| merged common ancestors
 =======
     <string name="back_button">Back</string>
