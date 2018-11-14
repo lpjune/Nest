@@ -38,7 +38,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".2"
-                android:text="Weather: XXX XXX" />
+                android:text="Weather: XXX XXX"/>
 
             <Button
                 android:id="@+id/backButton"
@@ -78,10 +78,12 @@
                 android:text="@string/next_button"
                 android:textSize="10dp" />
 
-            <android.support.v4.widget.Space
+            <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight=".2" />
+                android:layout_weight=".2"
+                android:text="System Status: IDLE" />
+
         </LinearLayout>
 
     </android.support.constraint.ConstraintLayout>
