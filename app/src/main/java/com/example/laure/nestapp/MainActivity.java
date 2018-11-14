@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,12 +17,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView logTextView;
     private Button burgerButton, menuSettingsButton, menuConnectButton, nextButton, backButton, systemHaltButton, logButton;
     private Switch doorsSwitch, roofSwitch, extendPadSwitch, raisePadSwitch;
-
+    private RadioButton backDot, nextDot;
+    private int cam = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         // TextView initializers
         logTextView = (TextView) findViewById(R.id.logTextView);
@@ -33,6 +37,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         menuSettingsButton = (Button)findViewById(R.id.menuSettingsBtn);
         systemHaltButton = (Button)findViewById(R.id.systemHaltButton);
         logButton = (Button)findViewById(R.id.logButton);
+        backDot = (RadioButton)findViewById(R.id.back_dot);
+        nextDot = (RadioButton)findViewById(R.id.next_dot);
 
         // Switch initializers
         doorsSwitch = (Switch)findViewById(R.id.doorsSwitch);
@@ -62,14 +68,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String request = "";
 
         // Change Request Code/ Request Parameters
+        cam = 1;
         switch (v.getId()){
+
+            case R.id.backButton:
+                request = "backButton";
+                if(cam == 2){
+                    cam--;
+                    backDot.setSelected(true);
+                }
+                break;
 
             case R.id.nextButton:
                 request = "nextButton";
+                if(cam == 1){
+                    cam++;
+                    nextDot.setSelected(true);
+                }
                 break;
-            case R.id.backButton:
-                request = "backButton";
-                break;
+
             case R.id.burgerButton:
 
                 //Show or hide menu
@@ -139,4 +156,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void sendRequest(String requestCode){
         Toast.makeText(this,requestCode,Toast.LENGTH_SHORT).show();
     }
+
 }
