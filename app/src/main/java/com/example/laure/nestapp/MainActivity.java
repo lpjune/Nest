@@ -2,6 +2,7 @@ package com.example.laure.nestapp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // TextView initializers
         logTextView = (TextView) findViewById(R.id.logTextView);
+        logTextView.setMovementMethod(new ScrollingMovementMethod());
 
         // Button initializers
         nextButton = (Button)findViewById(R.id.nextButton);
