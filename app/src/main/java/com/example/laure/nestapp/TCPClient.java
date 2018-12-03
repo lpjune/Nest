@@ -16,9 +16,9 @@ import java.net.Socket;
 public class TCPClient {
 
     // server IP IPv4
-    public static final String SERVER_IP = "192.168.0.100";
+    public static final String SERVER_IP = "130.18.104.150";
     // server port
-    public static final int SERVER_PORT = 4444;
+    public static final int SERVER_PORT = 5555;
     // message to send to the server
     private String mServerMessage;
     // sends message received notifications
@@ -34,6 +34,7 @@ public class TCPClient {
      * Constructor of the class. OnMessagedReceived listens for the messages received from server
      */
     public TCPClient(OnMessageReceived listener) {
+
         mMessageListener = listener;
     }
 
