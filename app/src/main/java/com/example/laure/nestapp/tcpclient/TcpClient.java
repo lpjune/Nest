@@ -1,23 +1,14 @@
-package com.example.laure.nestapp;
-
-//Imports Needed
+package com.example.laure.nestapp.tcpclient;
 
 import android.util.Log;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 
 
-public class TCPClient {
+public class TcpClient {
 
-    // server IP IPv4
-    public static final String SERVER_IP = "130.18.104.150";
-    // server port
+    public static final String SERVER_IP = "170.253.147.228"; //your computer IP address
     public static final int SERVER_PORT = 5555;
     // message to send to the server
     private String mServerMessage;
@@ -33,14 +24,12 @@ public class TCPClient {
     /**
      * Constructor of the class. OnMessagedReceived listens for the messages received from server
      */
-    public TCPClient(OnMessageReceived listener) {
-
+    public TcpClient(OnMessageReceived listener) {
         mMessageListener = listener;
     }
 
     /**
      * Sends the message entered by client to the server
-     *
      * @param message text entered by client
      */
     public void sendMessage(String message) {
@@ -56,7 +45,7 @@ public class TCPClient {
     public void stopClient() {
 
         // send mesage that we are closing the connection
-        sendMessage("Closing connection");
+        sendMessage("Closed Connection");
 
         mRun = false;
 
@@ -76,12 +65,12 @@ public class TCPClient {
         mRun = true;
 
         try {
-            //here you must put your computer's IP address.
+            // gets IP
             InetAddress serverAddr = InetAddress.getByName(SERVER_IP);
 
             Log.e("TCP Client", "C: Connecting...");
 
-            //create a socket to make the connection with the server
+            // create a socket to make the connection with the server
             Socket socket = new Socket(serverAddr, SERVER_PORT);
 
             try {

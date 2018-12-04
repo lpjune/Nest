@@ -23,16 +23,16 @@
     <!--Server testing log-->
     <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="275dp"
-        android:layout_height="350dp"
-        android:orientation="horizontal"
+        android:layout_height="200dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/camera_chan">
+        app:layout_constraintTop_toBottomOf="@+id/camera_chan"
+        app:layout_constraintBottom_toTopOf="@id/burgerButton"
+        android:background="@color/colorPrimaryDark">
 
         <ListView
             android:id="@+id/list"
-            android:layout_width="fill_parent"
-            android:layout_height="0dip"
-            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:cacheColorHint="#00000000"
             android:listSelector="@android:color/transparent"
             android:transcriptMode="alwaysScroll" />
@@ -48,7 +48,8 @@
                 android:layout_height="40dp"
                 android:id="@+id/editText"
                 android:layout_weight="1"
-                app:layout_constraintTop_toBottomOf="@+id/list"/>
+                app:layout_constraintTop_toBottomOf="@+id/list"
+                android:background="@color/colorAccent"/>
 
             <Button android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
