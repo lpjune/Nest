@@ -27,7 +27,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/camera_chan"
         app:layout_constraintBottom_toTopOf="@id/burgerButton"
-        android:background="@color/colorPrimaryDark">
+        android:background="@color/buttonClicked">
 
         <ListView
             android:id="@+id/list"
@@ -43,18 +43,19 @@
             android:orientation="horizontal"
             android:gravity="bottom">
 
-            <EditText android:inputType="textMultiLine|textNoSuggestions"
+            <EditText
+                android:id="@+id/editText"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:id="@+id/editText"
                 android:layout_weight="1"
-                app:layout_constraintTop_toBottomOf="@+id/list"
-                android:background="@color/colorAccent"/>
+                android:background="@color/buttonNotClicked"
+                android:inputType="textMultiLine|textNoSuggestions"
+                app:layout_constraintTop_toBottomOf="@+id/list" />
 
             <Button android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/send_button"
-                android:text="send" />
+                android:text="send"/>
         </LinearLayout>
     </android.support.constraint.ConstraintLayout>
 
