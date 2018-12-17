@@ -14,11 +14,8 @@ import android.widget.Toast;
 
 
 // client activity imports
-import android.app.Activity;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -157,9 +154,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.menuConnectBtn:
                 request = "menuConnectBtn";
+                // connect to the server
+                new MainActivity.ConnectTask().execute("");
                 break;
             case R.id.menuDisconnectBtn:
                 request = "menuDisconnectBtn";
+                // disconnect
+                mTcpClient.stopClient();
+                mTcpClient = null;
+                // clear the data set
+                arrayList.clear();
+                // notify the adapter that the data set has changed.
+                mAdapter.notifyDataSetChanged();
                 break;
             case R.id.menuSettingsBtn:
                 request = "menuSettingsBtn";
