@@ -265,6 +265,17 @@
             android:visibility="gone" />
 
         <Button
+            android:id="@+id/menuDisconnectBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin=".5dp"
+            android:background="@drawable/menu"
+            android:padding="0dp"
+            android:text="Disconnect"
+            android:textColor="@color/ButtonTextColor"
+            android:visibility="gone" />
+
+        <Button
             android:id="@+id/menuSettingsBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import com.example.laure.nestapp.MainActivity;
 import com.example.laure.nestapp.R;
 
 import java.util.ArrayList;
@@ -93,28 +92,28 @@ public class ClientActivity extends Activity {
         return super.onPrepareOptionsMenu(menu);
     }
 
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle item selection
-//        switch (item.getItemId()) {
-//            case R.id.connect:
-//                // connect to the server
-//                new ConnectTask().execute("");
-//                return true;
-//            case R.id.disconnect:
-//                // disconnect
-//                mTcpClient.stopClient();
-//                mTcpClient = null;
-//                // clear the data set
-//                arrayList.clear();
-//                // notify the adapter that the data set has changed.
-//                mAdapter.notifyDataSetChanged();
-//                return true;
-//            default:
-//                return super.onOptionsItemSelected(item);
-//        }
-//
-//    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.connect:
+                // connect to the server
+                new ConnectTask().execute("");
+                return true;
+            case R.id.disconnect:
+                // disconnect
+                mTcpClient.stopClient();
+                mTcpClient = null;
+                // clear the data set
+                arrayList.clear();
+                // notify the adapter that the data set has changed.
+                mAdapter.notifyDataSetChanged();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+    }
 
     public class ConnectTask extends AsyncTask<String, String, TcpClient> {
 
