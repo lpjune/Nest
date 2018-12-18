@@ -8,8 +8,9 @@ import java.net.Socket;
 
 public class TcpClient {
 
-    public static final String SERVER_IP = "192.168.0.104"; //your computer IP address
-    public static final int SERVER_PORT = 43434;
+    // server computers IPV4 Address
+    public static final String SERVER_IP = "192.168.0.100";
+    public static final int SERVER_PORT = 8080;
     // message to send to the server
     private String mServerMessage;
     // sends message received notifications
