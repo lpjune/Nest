@@ -8,14 +8,14 @@ import java.net.Socket;
 
 public class TcpClient {
 
-    public static final String SERVER_IP = "108.208.12.212"; //your computer IP address
-    public static final int SERVER_PORT = 5555;
+    public static final String SERVER_IP = "192.168.0.104"; //your computer IP address
+    public static final int SERVER_PORT = 43434;
     // message to send to the server
     private String mServerMessage;
     // sends message received notifications
     private OnMessageReceived mMessageListener = null;
     // while this is true, the server will continue running
-    private boolean mRun = false;
+    private boolean mRun = true;
     // used to send messages
     private PrintWriter mBufferOut;
     // used to read messages from the server

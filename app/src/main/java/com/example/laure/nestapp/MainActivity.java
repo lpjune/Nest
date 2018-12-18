@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Switch doorsSwitch, roofSwitch, extendPadSwitch, raisePadSwitch;
     private RadioButton backDot, nextDot;
 
-    // client activity declaration
+    // client activity declarations
     private ListView mList;
     private ArrayList<String> arrayList;
     private ClientListAdapter mAdapter;
@@ -144,9 +144,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //Show or hide menu
                 if (menuConnectButton.getVisibility() == View.GONE){
                     menuConnectButton.setVisibility(View.VISIBLE);
+                    menuDisconnectButton.setVisibility(View.VISIBLE);
                     menuSettingsButton.setVisibility(View.VISIBLE);
                 } else {
                     menuConnectButton.setVisibility(View.GONE);
+                    menuDisconnectButton.setVisibility(View.GONE);
                     menuSettingsButton.setVisibility(View.GONE);
                 }
 

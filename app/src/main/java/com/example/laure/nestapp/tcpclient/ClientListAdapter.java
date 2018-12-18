@@ -12,6 +12,8 @@ import com.example.laure.nestapp.R;
 import java.util.ArrayList;
 
 
+// KEEPS LIST OF ITEMS TO/FROM SERVER
+
 public class ClientListAdapter extends BaseAdapter {
 
     private ArrayList<String> mListItems;
