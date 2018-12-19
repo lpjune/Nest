@@ -11,6 +11,7 @@ import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.os.StrictMode;
 
 
 // client activity imports
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     // Button/Switch declaration
     private TextView logTextView;
-    private Button burgerButton, menuSettingsButton, menuConnectButton, menuDisconnectButton, nextButton, backButton, systemHaltButton, logButton;
+    private Button burgerButton, menuSettingsButton, menuConnectButton, menuDisconnectButton, menuDiagnosticButton, nextButton, backButton, systemHaltButton, logButton;
     private Switch doorsSwitch, roofSwitch, extendPadSwitch, raisePadSwitch;
     private RadioButton backDot, nextDot;
 
@@ -46,6 +47,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // allows network connections
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
 
         // client activity on create
@@ -90,6 +95,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         burgerButton = (Button)findViewById(R.id.burgerButton);
         menuConnectButton = (Button)findViewById(R.id.menuConnectBtn);
         menuDisconnectButton = (Button)findViewById(R.id.menuDisconnectBtn);
+        menuDiagnosticButton = (Button)findViewById(R.id.menuDiagnosticBtn);
         menuSettingsButton = (Button)findViewById(R.id.menuSettingsBtn);
         systemHaltButton = (Button)findViewById(R.id.systemHaltButton);
         logButton = (Button)findViewById(R.id.logButton);
@@ -110,6 +116,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         menuSettingsButton.setOnClickListener(this);
         menuConnectButton.setOnClickListener(this);
         menuDisconnectButton.setOnClickListener(this);
+        menuDiagnosticButton.setOnClickListener(this);
         systemHaltButton.setOnClickListener(this);
         logButton.setOnClickListener(this);
 
@@ -145,10 +152,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (menuConnectButton.getVisibility() == View.GONE){
                     menuConnectButton.setVisibility(View.VISIBLE);
                     menuDisconnectButton.setVisibility(View.VISIBLE);
+                    menuDiagnosticButton.setVisibility(View.VISIBLE);
                     menuSettingsButton.setVisibility(View.VISIBLE);
                 } else {
                     menuConnectButton.setVisibility(View.GONE);
                     menuDisconnectButton.setVisibility(View.GONE);
+                    menuDiagnosticButton.setVisibility(View.GONE);
                     menuSettingsButton.setVisibility(View.GONE);
                 }
 
@@ -171,6 +180,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.menuSettingsBtn:
                 request = "menuSettingsBtn";
+                break;
+            case R.id.menuDiagnosticBtn:
+                request = "menuDiagnosticBtn";
                 break;
             case R.id.systemHaltButton:
                 request = "systemHaltButton";
