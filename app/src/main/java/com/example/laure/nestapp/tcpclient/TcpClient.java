@@ -1,9 +1,14 @@
 package com.example.laure.nestapp.tcpclient;
 
 import android.util.Log;
-import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+
 
 
 public class TcpClient {
