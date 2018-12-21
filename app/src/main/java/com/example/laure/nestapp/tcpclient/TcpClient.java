@@ -9,12 +9,13 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 
+import static java.sql.DriverManager.println;
 
 
 public class TcpClient {
 
     // server computers IPV4 Address
-    public static final String SERVER_IP = "192.168.0.100";
+    public static final String SERVER_IP = "192.168.1.76";
     public static final int SERVER_PORT = 8080;
     // message to send to the server
     private String mServerMessage;
