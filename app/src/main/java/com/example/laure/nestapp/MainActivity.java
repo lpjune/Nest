@@ -3,6 +3,7 @@ package com.example.laure.nestapp;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -138,12 +139,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 request = "backButton";
                 nextDot.setChecked(false);
                 backDot.setChecked(true);
+                sendButtonMessage(request);
                 break;
 
             case R.id.nextButton:
                 request = "nextButton";
                 backDot.setChecked(false);
                 nextDot.setChecked(true);
+                sendButtonMessage(request);
                 break;
 
             case R.id.burgerButton:
@@ -183,9 +186,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.menuDiagnosticBtn:
                 request = "menuDiagnosticBtn";
+                sendButtonMessage(request);
                 break;
             case R.id.systemHaltButton:
                 request = "systemHaltButton";
+                sendButtonMessage(request);
                 break;
             case R.id.logButton:
                 request = "logButton";
@@ -212,16 +217,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Change Request Code/ Request Parameters
         switch(buttonView.getId()){
             case R.id.doorsSwitch:
-                request = "doorsSwitch ";
+                request = "doorsSwitch";
+                sendButtonMessage(request);
                 break;
             case R.id.roofSwitch:
-                request = "roofSwitch ";
+                request = "roofSwitch";
+                sendButtonMessage(request);
                 break;
             case R.id.extendPadSwitch:
-                request = "extendPadSwitch ";
+                request = "extendPadSwitch";
+                sendButtonMessage(request);
                 break;
             case R.id.raisePadSwitch:
-                request = "raisePadSwitch ";
+                request = "raisePadSwitch";
+                sendButtonMessage(request);
                 break;
         }
 
@@ -229,6 +238,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //SEND REQUEST HERE
         sendRequest(request);
+    }
+
+    public boolean sendButtonMessage(String request) {
+        try {
+            mTcpClient.sendMessage(request);
+            arrayList.add(request);
+            return true;
+        } catch (Exception e) {
+            Log.e("TCP", "S: Error", e);
+            return false;
+        }
+
     }
 
     private void sendRequest(String requestCode){
@@ -254,12 +275,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (mTcpClient != null) {
             // if the client is connected, enable the connect button and disable the disconnect one
-            menu.getItem(1).setEnabled(true);
-            menu.getItem(0).setEnabled(false);
+            menuConnectButton.setEnabled(true);
+            menuDisconnectButton.setEnabled(false);
         } else {
             // if the client is disconnected, enable the disconnect button and disable the connect one
-            menu.getItem(1).setEnabled(false);
-            menu.getItem(0).setEnabled(true);
+            menuConnectButton.setEnabled(false);
+            menuDisconnectButton.setEnabled(true);
         }
 
         return super.onPrepareOptionsMenu(menu);
