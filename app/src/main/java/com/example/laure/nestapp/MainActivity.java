@@ -173,6 +173,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.menuDisconnectBtn:
                 request = "menuDisconnectBtn";
+                sendButtonMessage(request);
                 // disconnect
                 mTcpClient.stopClient();
                 mTcpClient = null;
@@ -217,19 +218,39 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Change Request Code/ Request Parameters
         switch(buttonView.getId()){
             case R.id.doorsSwitch:
-                request = "doorsSwitch";
+                if (doorsSwitch.isChecked()){
+                    request = "doorsSwitchOn";
+                }
+                else {
+                    request = "doorsSwitchOff";
+                }
                 sendButtonMessage(request);
                 break;
             case R.id.roofSwitch:
-                request = "roofSwitch";
+                if (roofSwitch.isChecked()){
+                    request = "roofSwitchOn";
+                }
+                else {
+                    request = "roofSwitchOff";
+                }
                 sendButtonMessage(request);
                 break;
             case R.id.extendPadSwitch:
-                request = "extendPadSwitch";
+                if (extendPadSwitch.isChecked()){
+                    request = "extendPadSwitchOn";
+                }
+                else {
+                    request = "extendPadSwitchOff";
+                }
                 sendButtonMessage(request);
                 break;
             case R.id.raisePadSwitch:
-                request = "raisePadSwitch";
+                if (raisePadSwitch.isChecked()){
+                    request = "raisePadSwitchOn";
+                }
+                else {
+                    request = "raisePadSwitchOff";
+                }
                 sendButtonMessage(request);
                 break;
         }
