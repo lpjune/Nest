@@ -1,5 +1,6 @@
 package com.example.laure.nestapp;
 
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
@@ -32,7 +33,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, Switch.OnCheckedChangeListener{
 
     // Button/Switch declaration
-    private TextView logTextView;
+    private ConstraintLayout logView;
     private Button burgerButton, menuSettingsButton, menuConnectButton, menuDisconnectButton, menuDiagnosticButton, nextButton, backButton, systemHaltButton, logButton;
     private Switch doorsSwitch, roofSwitch, extendPadSwitch, raisePadSwitch;
     private RadioButton backDot, nextDot;
@@ -87,8 +88,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         // TextView initializers
-        logTextView = (TextView) findViewById(R.id.logTextView);
-        logTextView.setMovementMethod(new ScrollingMovementMethod());
+        logView = (ConstraintLayout) findViewById(R.id.logView);
+
 
         // Button initializers
         nextButton = (Button)findViewById(R.id.nextButton);
@@ -195,11 +196,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.logButton:
                 request = "logButton";
-                if (logTextView.getVisibility() == View.GONE){
-                    logTextView.setVisibility(View.VISIBLE);
+                if (logView.getVisibility() == View.GONE){
+                    logView.setVisibility(View.VISIBLE);
                     logButton.setText("»");
                 } else {
-                    logTextView.setVisibility(View.GONE);
+                    logView.setVisibility(View.GONE);
                     logButton.setText("«");
                 }
 

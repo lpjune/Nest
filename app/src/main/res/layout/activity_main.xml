@@ -20,10 +20,12 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
-    <!--Server testing log-->
+    <!--Server log-->
     <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="275dp"
         android:layout_height="200dp"
+        android:id="@+id/logView"
+        android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/camera_chan"
         app:layout_constraintBottom_toTopOf="@id/burgerButton"
@@ -58,6 +60,18 @@
                 android:text="send"/>
         </LinearLayout>
     </android.support.constraint.ConstraintLayout>
+
+    <!--Server log button-->
+    <Button
+        android:id="@+id/logButton"
+        android:layout_width="24dp"
+        android:layout_height="200dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/burgerButton"
+        app:layout_constraintTop_toBottomOf="@+id/camera_chan"
+        android:background="@drawable/menu"
+        android:text="«"
+        android:textColor="@color/ButtonTextColor"/>
 
     <!--Top Bar-->
     <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -229,19 +243,18 @@
     <!--System Halt Button-->
     <Button
         android:id="@+id/systemHaltButton"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/system_halt_button"
-        android:padding="0dp"
         android:text="@string/system_halt"
         android:textColor="@android:color/white"
+        app:layout_constraintLeft_toRightOf="@id/control_panel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <!--Burger Menu-->
     <LinearLayout
@@ -298,42 +311,7 @@
             android:visibility="gone" />
     </LinearLayout>
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_end="100dp" />
 
-    <TextView
-        android:id="@+id/logTextView"
-        android:layout_width="125dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="@dimen/log_margin"
-        android:layout_marginTop="@dimen/log_margin"
-        android:background="@color/buttonNotClicked"
-        android:visibility="gone"
-        android:scrollbars="vertical"
-        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu"
-        android:textColor="@color/ButtonTextColor"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/camera_chan" />
-
-    <Button
-        android:id="@+id/logButton"
-        android:layout_width="16dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="@dimen/log_margin"
-        android:layout_marginEnd="0dp"
-        android:layout_marginTop="@dimen/log_margin"
-        android:background="@drawable/menu"
-        android:padding="0dp"
-        android:text="«"
-        android:textColor="@color/ButtonTextColor"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toStartOf="@+id/logTextView"
-        app:layout_constraintTop_toBottomOf="@+id/camera_chan" />
 
 
 </android.support.constraint.ConstraintLayout>
