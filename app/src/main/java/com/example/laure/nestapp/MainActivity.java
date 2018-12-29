@@ -3,23 +3,20 @@ package com.example.laure.nestapp;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.PopupMenu;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Switch;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.os.StrictMode;
 
 
 // client activity imports
 import android.os.AsyncTask;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -34,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     // Button/Switch declaration
     private ConstraintLayout logView;
-    private Button burgerButton, menuSettingsButton, menuConnectButton, menuDisconnectButton, menuDiagnosticButton, nextButton, backButton, systemHaltButton, logButton;
+    private Button nextButton, backButton, systemHaltButton, logButton;
     private Switch doorsSwitch, roofSwitch, extendPadSwitch, raisePadSwitch;
     private RadioButton backDot, nextDot;
 
@@ -94,11 +91,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Button initializers
         nextButton = (Button)findViewById(R.id.nextButton);
         backButton = (Button)findViewById(R.id.backButton);
-        burgerButton = (Button)findViewById(R.id.burgerButton);
-        menuConnectButton = (Button)findViewById(R.id.menuConnectBtn);
-        menuDisconnectButton = (Button)findViewById(R.id.menuDisconnectBtn);
-        menuDiagnosticButton = (Button)findViewById(R.id.menuDiagnosticBtn);
-        menuSettingsButton = (Button)findViewById(R.id.menuSettingsBtn);
         systemHaltButton = (Button)findViewById(R.id.systemHaltButton);
         logButton = (Button)findViewById(R.id.logButton);
         RadioGroup dotGroup = (RadioGroup)findViewById(R.id.rgroup);
@@ -114,11 +106,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Button OnClickListeners
         nextButton.setOnClickListener(this);
         backButton.setOnClickListener(this);
-        burgerButton.setOnClickListener(this);
-        menuSettingsButton.setOnClickListener(this);
-        menuConnectButton.setOnClickListener(this);
-        menuDisconnectButton.setOnClickListener(this);
-        menuDiagnosticButton.setOnClickListener(this);
         systemHaltButton.setOnClickListener(this);
         logButton.setOnClickListener(this);
 
@@ -128,6 +115,56 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         extendPadSwitch.setOnCheckedChangeListener(this);
         raisePadSwitch.setOnCheckedChangeListener(this);
     }
+
+    public void connectToServer() {
+        new MainActivity.ConnectTask().execute("");
+        return;
+    }
+
+
+    public void showPopup(View v) {
+        PopupMenu popup = new PopupMenu(MainActivity.this, v);
+        popup.inflate(R.menu.burger_menu);
+        popup.show();
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+
+            @Override
+            public boolean onMenuItemClick(android.view.MenuItem item) {
+                String request = "";
+                switch (item.getItemId()) {
+                    case R.id.menuConnectBtn:
+                        request = "menuConnectBtn";
+                        connectToServer();
+                        return true;
+                    case R.id.menuDisconnectBtn:
+                        request = "menuDisconnectBtn";
+                        sendButtonMessage(request);
+                        // disconnect
+                        mTcpClient.stopClient();
+                        mTcpClient = null;
+                        // clear the data set
+                        arrayList.clear();
+                        // notify the adapter that the data set has changed.
+                        mAdapter.notifyDataSetChanged();
+                        return false;
+
+                    case R.id.menuSettingsBtn:
+                        request = "menuSettingsBtn";
+                        return false;
+
+                    case R.id.menuDiagnosticBtn:
+                        request = "menuDiagnosticBtn";
+                        sendButtonMessage(request);
+                        return false;
+
+                    default:
+                        Log.e("went to default", "went to default");
+                        return false;
+                }
+                }
+        });
+    }
+
 
     @Override
     public void onClick(View v) {
@@ -150,50 +187,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 sendButtonMessage(request);
                 break;
 
-            case R.id.burgerButton:
-
-                //Show or hide menu
-                if (menuConnectButton.getVisibility() == View.GONE){
-                    menuConnectButton.setVisibility(View.VISIBLE);
-                    menuDisconnectButton.setVisibility(View.VISIBLE);
-                    menuDiagnosticButton.setVisibility(View.VISIBLE);
-                    menuSettingsButton.setVisibility(View.VISIBLE);
-                } else {
-                    menuConnectButton.setVisibility(View.GONE);
-                    menuDisconnectButton.setVisibility(View.GONE);
-                    menuDiagnosticButton.setVisibility(View.GONE);
-                    menuSettingsButton.setVisibility(View.GONE);
-                }
-
-                request = "burgerButton";
-                break;
-            case R.id.menuConnectBtn:
-                request = "menuConnectBtn";
-                // connect to the server
-                new MainActivity.ConnectTask().execute("");
-                break;
-            case R.id.menuDisconnectBtn:
-                request = "menuDisconnectBtn";
-                sendButtonMessage(request);
-                // disconnect
-                mTcpClient.stopClient();
-                mTcpClient = null;
-                // clear the data set
-                arrayList.clear();
-                // notify the adapter that the data set has changed.
-                mAdapter.notifyDataSetChanged();
-                break;
-            case R.id.menuSettingsBtn:
-                request = "menuSettingsBtn";
-                break;
-            case R.id.menuDiagnosticBtn:
-                request = "menuDiagnosticBtn";
-                sendButtonMessage(request);
-                break;
             case R.id.systemHaltButton:
                 request = "systemHaltButton";
                 sendButtonMessage(request);
                 break;
+
             case R.id.logButton:
                 request = "logButton";
                 if (logView.getVisibility() == View.GONE){
@@ -292,44 +290,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     // enable connect/disconnect buttons
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
+//    @Override
+//    public boolean onPrepareOptionsMenu(Menu menu) {
+//
+//        if (mTcpClient != null) {
+//            // if the client is connected, enable the connect button and disable the disconnect one
+//            menuConnectButton.setEnabled(true);
+//            menuDisconnectButton.setEnabled(false);
+//        } else {
+//            // if the client is disconnected, enable the disconnect button and disable the connect one
+//            menuConnectButton.setEnabled(false);
+//            menuDisconnectButton.setEnabled(true);
+//        }
+//
+//        return super.onPrepareOptionsMenu(menu);
+//    }
 
-        if (mTcpClient != null) {
-            // if the client is connected, enable the connect button and disable the disconnect one
-            menuConnectButton.setEnabled(true);
-            menuDisconnectButton.setEnabled(false);
-        } else {
-            // if the client is disconnected, enable the disconnect button and disable the connect one
-            menuConnectButton.setEnabled(false);
-            menuDisconnectButton.setEnabled(true);
-        }
-
-        return super.onPrepareOptionsMenu(menu);
-    }
-
-    // connect/disconnect from server on button press
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.menuConnectBtn:
-                // connect to the server
-                new MainActivity.ConnectTask().execute("");
-                return true;
-            case R.id.menuDisconnectBtn:
-                // disconnect
-                mTcpClient.stopClient();
-                mTcpClient = null;
-                // clear the data set
-                arrayList.clear();
-                // notify the adapter that the data set has changed.
-                mAdapter.notifyDataSetChanged();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
 
     // connect class
     public class ConnectTask extends AsyncTask<String, String, TcpClient> {

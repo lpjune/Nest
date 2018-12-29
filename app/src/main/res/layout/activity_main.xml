@@ -238,7 +238,9 @@
         app:layout_constraintBottom_toBottomOf="@+id/control_panel"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/control_panel"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        android:onClick="showPopup" />
+
 
     <!--System Halt Button-->
     <Button
@@ -255,61 +257,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent" />
-
-    <!--Burger Menu-->
-    <LinearLayout
-        android:layout_width="167dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="16dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/burgerButton"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <Button
-            android:id="@+id/menuConnectBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin=".5dp"
-            android:background="@drawable/menu"
-            android:padding="0dp"
-            android:text="@string/menu_connect"
-            android:textColor="@color/ButtonTextColor"
-            android:visibility="gone" />
-
-        <Button
-            android:id="@+id/menuDisconnectBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin=".5dp"
-            android:background="@drawable/menu"
-            android:padding="0dp"
-            android:text="Disconnect"
-            android:textColor="@color/ButtonTextColor"
-            android:visibility="gone" />
-
-        <Button
-            android:id="@+id/menuDiagnosticBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin=".5dp"
-            android:background="@drawable/menu"
-            android:padding="0dp"
-            android:text="System Diagnostic"
-            android:textColor="@color/ButtonTextColor"
-            android:visibility="gone" />
-
-        <Button
-            android:id="@+id/menuSettingsBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin=".5dp"
-            android:background="@drawable/menu"
-            android:padding="0dp"
-            android:text="@string/menu_settings"
-            android:textColor="@color/ButtonTextColor"
-            android:visibility="gone" />
-    </LinearLayout>
 
 
 
