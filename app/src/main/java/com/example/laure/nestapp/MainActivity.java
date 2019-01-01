@@ -122,8 +122,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    public void showPopup(View v) {
-        PopupMenu popup = new PopupMenu(MainActivity.this, v);
+    public void showPopup(final View v) {
+        final PopupMenu popup = new PopupMenu(MainActivity.this, v);
         popup.inflate(R.menu.burger_menu);
         popup.show();
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         arrayList.clear();
                         // notify the adapter that the data set has changed.
                         mAdapter.notifyDataSetChanged();
-                        return false;
+                        return true;
 
                     case R.id.menuSettingsBtn:
                         request = "menuSettingsBtn";
@@ -155,7 +155,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     case R.id.menuDiagnosticBtn:
                         request = "menuDiagnosticBtn";
                         sendButtonMessage(request);
-                        return false;
+                        PopupMenu popup2 = new PopupMenu(MainActivity.this, v);
+                        popup2.inflate(R.menu.diagnostic_menu);
+                        popup2.show();
+                        return true;
 
                     default:
                         Log.e("went to default", "went to default");
