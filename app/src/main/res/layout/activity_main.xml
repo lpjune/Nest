@@ -26,9 +26,9 @@
         android:layout_height="200dp"
         android:id="@+id/logView"
         android:visibility="gone"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/camera_chan"
-        app:layout_constraintBottom_toTopOf="@id/burgerButton"
+        app:layout_constraintBottom_toTopOf="@id/systemHaltButton"
         android:background="@color/buttonClicked">
 
         <ListView
@@ -66,8 +66,8 @@
         android:id="@+id/logButton"
         android:layout_width="24dp"
         android:layout_height="200dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/burgerButton"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/systemHaltButton"
         app:layout_constraintTop_toBottomOf="@+id/camera_chan"
         android:background="@drawable/menu"
         android:text="«"
