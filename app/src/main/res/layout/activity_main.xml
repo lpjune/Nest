@@ -20,48 +20,10 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
-    <!--Server log-->
-    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="275dp"
-        android:layout_height="200dp"
-        android:id="@+id/logView"
-        android:visibility="gone"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/camera_chan"
-        app:layout_constraintBottom_toTopOf="@id/systemHaltButton"
-        android:background="@color/buttonClicked">
+    <!--Server Log-->
+    <include layout="@layout/server_log" />
 
-        <ListView
-            android:id="@+id/list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:cacheColorHint="#00000000"
-            android:listSelector="@android:color/transparent"
-            android:transcriptMode="alwaysScroll" />
-
-        <LinearLayout android:id="@+id/footer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:gravity="bottom">
-
-            <EditText
-                android:id="@+id/editText"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:background="@color/buttonNotClicked"
-                android:inputType="textMultiLine|textNoSuggestions"
-                app:layout_constraintTop_toBottomOf="@+id/list" />
-
-            <Button android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/send_button"
-                android:text="send"/>
-        </LinearLayout>
-    </android.support.constraint.ConstraintLayout>
-
-    <!--Server log button-->
+    <!--Server Log Button-->
     <Button
         android:id="@+id/logButton"
         android:layout_width="24dp"
@@ -77,7 +39,7 @@
     <include layout="@layout/top_bar" />
 
 
-    <!-- Bottom Control Panel -->
+    <!-- Bottom Bar -->
     <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/control_panel"
         android:layout_width="0dp"
