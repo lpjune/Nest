@@ -59,7 +59,7 @@ public class ClientListAdapter extends BaseAdapter {
         String stringItem = mListItems.get(position);
         if (stringItem != null) {
 
-            TextView itemName = (TextView) view.findViewById(R.id.list_item_text_view);
+            TextView itemName = view.findViewById(R.id.list_item_text_view);
 
             if (itemName != null) {
                 //set the item name on the TextView

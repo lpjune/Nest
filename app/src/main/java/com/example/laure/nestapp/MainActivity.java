@@ -55,11 +55,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // client activity on create
         arrayList = new ArrayList<String>();
 
-        final EditText editText = (EditText) findViewById(R.id.editText);
-        Button send = (Button) findViewById(R.id.send_button);
+        final EditText editText = findViewById(R.id.editText);
+        Button send = findViewById(R.id.send_button);
 
         //relate the listView from java to the one created in xml
-        mList = (ListView) findViewById(R.id.list);
+        mList = findViewById(R.id.list);
         mAdapter = new ClientListAdapter(this, arrayList);
         mList.setAdapter(mAdapter);
 
@@ -85,23 +85,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         // TextView initializers
-        logView = (ConstraintLayout) findViewById(R.id.logView);
+        logView = findViewById(R.id.logView);
 
 
         // Button initializers
-        nextButton = (Button)findViewById(R.id.nextButton);
-        backButton = (Button)findViewById(R.id.backButton);
-        systemHaltButton = (Button)findViewById(R.id.systemHaltButton);
-        logButton = (Button)findViewById(R.id.logButton);
-        RadioGroup dotGroup = (RadioGroup)findViewById(R.id.rgroup);
-        backDot = (RadioButton)findViewById(R.id.back_dot);
-        nextDot = (RadioButton)findViewById(R.id.next_dot);
+        nextButton = findViewById(R.id.nextButton);
+        backButton = findViewById(R.id.backButton);
+        systemHaltButton = findViewById(R.id.systemHaltButton);
+        logButton = findViewById(R.id.logButton);
+        RadioGroup dotGroup = findViewById(R.id.rgroup);
+        backDot = findViewById(R.id.back_dot);
+        nextDot = findViewById(R.id.next_dot);
 
         // Switch initializers
-        doorsSwitch = (Switch)findViewById(R.id.doorsSwitch);
-        roofSwitch = (Switch)findViewById(R.id.roofSwitch);
-        extendPadSwitch = (Switch)findViewById(R.id.extendPadSwitch);
-        raisePadSwitch = (Switch)findViewById(R.id.raisePadSwitch);
+        doorsSwitch = findViewById(R.id.doorsSwitch);
+        roofSwitch = findViewById(R.id.roofSwitch);
+        extendPadSwitch = findViewById(R.id.extendPadSwitch);
+        raisePadSwitch = findViewById(R.id.raisePadSwitch);
 
         // Button OnClickListeners
         nextButton.setOnClickListener(this);

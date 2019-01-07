@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -31,19 +32,19 @@
         android:id="@+id/logButton"
         android:layout_width="24dp"
         android:layout_height="200dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/systemHaltButton"
-        app:layout_constraintTop_toBottomOf="@+id/camera_chan"
         android:background="@drawable/menu"
         android:text="«"
-        android:textColor="@color/ButtonTextColor"/>
+        android:textColor="@color/ButtonTextColor"
+        app:layout_constraintBottom_toTopOf="@id/systemHaltButton"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/camera_chan" />
 
 
     <!--Top Bar-->
     <include layout="@layout/top_bar" />
 
 
-    <!--Bottom Bar-->
+    <!-- Bottom Bar -->
     <include layout="@layout/bottom_bar" />
 
 
@@ -52,16 +53,15 @@
         android:id="@+id/burgerButton"
         android:layout_width="64dp"
         android:layout_height="48dp"
-        android:layout_marginBottom="16dp"
         android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
         android:alpha=".75"
         android:background="@drawable/hamburger_button"
+        android:onClick="showPopup"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="@+id/control_panel"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/control_panel"
-        app:layout_constraintVertical_bias="0.0"
-        android:onClick="showPopup" />
+        app:layout_constraintVertical_bias="0.0" />
 
 
     <!--System Halt Button-->
@@ -69,16 +69,16 @@
         android:id="@+id/systemHaltButton"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/system_halt_button"
         android:text="@string/system_halt"
         android:textColor="@android:color/white"
-        app:layout_constraintLeft_toRightOf="@id/control_panel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/control_panel" />
 
 
 </android.support.constraint.ConstraintLayout>

@@ -3,11 +3,11 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="275dp"
     android:layout_height="200dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/logView"
     android:visibility="gone"
-    android:layout_constraintRight_toRightOf="parent"
-    android:layout_constraintTop_toBottomOf="@+id/camera_chan"
-    android:layout_constraintBottom_toTopOf="@id/systemHaltButton"
+    app:layout_constraintRight_toLeftOf="@id/logButton"
+    app:layout_constraintTop_toTopOf="@id/logButton"
     android:background="@color/buttonClicked">
 
     <ListView
@@ -30,8 +30,7 @@
             android:layout_height="40dp"
             android:layout_weight="1"
             android:background="@color/buttonNotClicked"
-            android:inputType="textMultiLine|textNoSuggestions"
-            android:layout_constraintTop_toBottomOf="@+id/list" />
+            android:inputType="textMultiLine|textNoSuggestions" />
 
         <Button android:layout_width="wrap_content"
             android:layout_height="wrap_content"
