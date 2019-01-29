@@ -1,6 +1,14 @@
 package com.example.laure.nestapp.tcpclient;
 
+import android.content.Context;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.EditText;
+
+import com.example.laure.nestapp.MainActivity;
+import com.example.laure.nestapp.R;
+
 import java.net.InetAddress;
 import java.net.Socket;
 import java.io.BufferedReader;
@@ -15,8 +23,23 @@ import static java.sql.DriverManager.println;
 public class TcpClient {
 
     // server computers IPV4 Address
-    public static final String SERVER_IP = "192.168.1.76";
-    public static final int SERVER_PORT = 8080;
+//    public static final String SERVER_IP = "130.18.64.135";
+//    public static final int SERVER_PORT = 65432;
+
+    public Context context;
+    LayoutInflater mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    final View textEntryView = mInflater.inflate(R.layout.activity_main, null);
+
+    final EditText IP= textEntryView.findViewById(R.id.ipconnectText);
+    String server_ip = IP.getText().toString();
+    final String SERVER_IP = server_ip;
+
+    final EditText PORT= textEntryView.findViewById(R.id.portconnectText);
+    String server_port_string = PORT.getText().toString();
+    int server_port = Integer.parseInt(server_port_string);
+    final int SERVER_PORT = server_port;
+
+
     // message to send to the server
     private String mServerMessage;
     // sends message received notifications

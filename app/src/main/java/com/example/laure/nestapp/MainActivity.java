@@ -4,6 +4,7 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -54,6 +55,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // client activity on create
         arrayList = new ArrayList<String>();
+
+        String default_ip = "130.18.64.135";
+        int default_port = 65432;
+
+        final EditText ipconnectText = findViewById(R.id.ipconnectText);
+        final EditText portconnectText = findViewById(R.id.portconnectText);
+        Button ipConnectBtn = findViewById(R.id.ipConnectBtn);
+
+//        ipconnectText.setText(default_ip);
+//        portconnectText.setText(default_port);
+
+//        ipConnectBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                connectToServer();
+//
+//            }
+//        });
+
+
+
 
         final EditText editText = findViewById(R.id.editText);
         Button send = findViewById(R.id.send_button);
@@ -116,6 +139,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         raisePadSwitch.setOnCheckedChangeListener(this);
     }
 
+
     public void connectToServer() {
         new MainActivity.ConnectTask().execute("");
         return;
@@ -134,11 +158,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 switch (item.getItemId()) {
                     case R.id.menuConnectBtn:
                         request = "menuConnectBtn";
-                        connectToServer();
+                        final PopupMenu popup3 = new PopupMenu(MainActivity.this, v);
+                        popup3.inflate(R.menu.connect_menu);
+                        popup3.show();
+                        popup3.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem item) {
+                                if (item.getGroupId() == R.id.ipConnectBtn) {
+                                    connectToServer();
+                                    return true;
+                                } else {
+                                    return false;
+                                }
+                            }});
                         return true;
+
                     case R.id.menuDisconnectBtn:
                         request = "menuDisconnectBtn";
-                        sendButtonMessage(request);
                         // disconnect
                         mTcpClient.stopClient();
                         mTcpClient = null;
