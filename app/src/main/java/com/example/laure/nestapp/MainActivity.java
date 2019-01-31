@@ -1,14 +1,21 @@
 package com.example.laure.nestapp;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.support.constraint.ConstraintLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Switch;
@@ -20,6 +27,7 @@ import android.os.StrictMode;
 import android.os.AsyncTask;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.VideoView;
 
 import com.example.laure.nestapp.tcpclient.ClientListAdapter;
 import com.example.laure.nestapp.tcpclient.TcpClient;
@@ -59,21 +67,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String default_ip = "130.18.64.135";
         int default_port = 65432;
 
-        final EditText ipconnectText = findViewById(R.id.ipconnectText);
-        final EditText portconnectText = findViewById(R.id.portconnectText);
-        Button ipConnectBtn = findViewById(R.id.ipConnectBtn);
 
 //        ipconnectText.setText(default_ip);
 //        portconnectText.setText(default_port);
 
-//        ipConnectBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                connectToServer();
-//
-//            }
-//        });
+
 
 
 
@@ -158,19 +156,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 switch (item.getItemId()) {
                     case R.id.menuConnectBtn:
                         request = "menuConnectBtn";
-                        final PopupMenu popup3 = new PopupMenu(MainActivity.this, v);
-                        popup3.inflate(R.menu.connect_menu);
-                        popup3.show();
-                        popup3.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+
+                        LayoutInflater inflater = getLayoutInflater();
+                        View dialoglayout = inflater.inflate(R.layout.connect_menu, null);
+
+                        AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+                        alertDialog.setView(dialoglayout);
+                        alertDialog.setCancelable(false);
+
+
+                        final EditText ip_text = (EditText)dialoglayout.findViewById(R.id.ipconnectText);
+                        final EditText port_text = (EditText)dialoglayout.findViewById(R.id.portconnectText);
+                        Button ip_button = (Button)dialoglayout.findViewById(R.id.ipConnectBtn);
+
+                        ip_button.setOnClickListener(new View.OnClickListener() {
                             @Override
-                            public boolean onMenuItemClick(MenuItem item) {
-                                if (item.getGroupId() == R.id.ipConnectBtn) {
-                                    connectToServer();
-                                    return true;
-                                } else {
-                                    return false;
-                                }
+                            public void onClick(View alertDialog) {
+                                connectToServer();
                             }});
+//
+                        alertDialog.setView(dialoglayout);
+                        alertDialog.show();
+
+
                         return true;
 
                     case R.id.menuDisconnectBtn:
