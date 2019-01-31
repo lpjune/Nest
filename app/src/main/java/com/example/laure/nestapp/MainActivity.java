@@ -1,5 +1,6 @@
 package com.example.laure.nestapp;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.constraint.ConstraintLayout;
@@ -155,14 +156,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 String request = "";
                 switch (item.getItemId()) {
                     case R.id.menuConnectBtn:
+                        popup.dismiss();
                         request = "menuConnectBtn";
 
                         LayoutInflater inflater = getLayoutInflater();
                         View dialoglayout = inflater.inflate(R.layout.connect_menu, null);
 
-                        AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
-                        alertDialog.setView(dialoglayout);
-                        alertDialog.setCancelable(false);
+
+                        final android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(MainActivity.this);
+                        builder.setView(dialoglayout);
+                        builder.setCancelable(false);
+
+                        final AlertDialog alertDialog = builder.show();
 
 
                         final EditText ip_text = (EditText)dialoglayout.findViewById(R.id.ipconnectText);
@@ -171,14 +176,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                         ip_button.setOnClickListener(new View.OnClickListener() {
                             @Override
-                            public void onClick(View alertDialog) {
-                                connectToServer();
-                            }});
-//
-                        alertDialog.setView(dialoglayout);
-                        alertDialog.show();
-
-
+                            public void onClick(View v) {
+                                // ... original code here
+                                alertDialog.dismiss();
+                            }
+                        });
                         return true;
 
                     case R.id.menuDisconnectBtn:
