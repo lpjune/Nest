@@ -65,17 +65,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // client activity on create
         arrayList = new ArrayList<String>();
 
-        String default_ip = "130.18.64.135";
-        int default_port = 65432;
-
-
-//        ipconnectText.setText(default_ip);
-//        portconnectText.setText(default_port);
-
-
-
-
-
 
         final EditText editText = findViewById(R.id.editText);
         Button send = findViewById(R.id.send_button);
@@ -167,20 +156,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         builder.setView(dialoglayout);
                         builder.setCancelable(false);
 
-                        final AlertDialog alertDialog = builder.show();
-
-
                         final EditText ip_text = (EditText)dialoglayout.findViewById(R.id.ipconnectText);
                         final EditText port_text = (EditText)dialoglayout.findViewById(R.id.portconnectText);
+
+                        ip_text.setText("130.18.64.135");
+                        port_text.setText("65432");
+
                         Button ip_button = (Button)dialoglayout.findViewById(R.id.ipConnectBtn);
+
+                        final AlertDialog alertDialog = builder.create();
 
                         ip_button.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 // ... original code here
+                                String return_ip = ip_text.getText().toString();
+                                String return_port = port_text.getText().toString();
+                                
+                                TcpClient.getSERVER_IP(return_ip);
+                                TcpClient.getSERVER_PORT(return_port);
+
+                                connectToServer();
                                 alertDialog.dismiss();
                             }
                         });
+                        alertDialog.show();
                         return true;
 
                     case R.id.menuDisconnectBtn:

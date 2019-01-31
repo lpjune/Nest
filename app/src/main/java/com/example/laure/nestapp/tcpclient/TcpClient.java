@@ -23,22 +23,8 @@ import static java.sql.DriverManager.println;
 public class TcpClient {
 
     // server computers IPV4 Address
-//    public static final String SERVER_IP = "130.18.64.135";
-//    public static final int SERVER_PORT = 65432;
-
-    public Context context;
-    LayoutInflater mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-    final View textEntryView = mInflater.inflate(R.layout.activity_main, null);
-
-    final EditText IP= textEntryView.findViewById(R.id.ipconnectText);
-    String server_ip = IP.getText().toString();
-    final String SERVER_IP = server_ip;
-
-    final EditText PORT= textEntryView.findViewById(R.id.portconnectText);
-    String server_port_string = PORT.getText().toString();
-    int server_port = Integer.parseInt(server_port_string);
-    final int SERVER_PORT = server_port;
-
+    public static String SERVER_IP;
+    public static int SERVER_PORT;
 
     // message to send to the server
     private String mServerMessage;
@@ -57,6 +43,16 @@ public class TcpClient {
     public TcpClient(OnMessageReceived listener) {
         mMessageListener = listener;
     }
+
+    public static void getSERVER_IP(String ip) {
+        TcpClient.SERVER_IP = ip;
+    }
+
+    public static void getSERVER_PORT(String port) {
+        int p = Integer.parseInt(port);
+        TcpClient.SERVER_PORT = p;
+    }
+
 
     /**
      * Sends the message entered by client to the server
