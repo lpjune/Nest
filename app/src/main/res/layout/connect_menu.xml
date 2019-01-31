@@ -1,52 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:id="@+id/connectLayout"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/connectLayout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:gravity="bottom"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:orientation="vertical">
 
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
         android:gravity="bottom"
-        xmlns:android="http://schemas.android.com/apk/res/android">
+        android:orientation="horizontal">
 
         <TextView
-            android:text = "IP"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <EditText
-                android:id="@+id/ipconnectText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/buttonNotClicked" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:gravity="bottom"
-        xmlns:android="http://schemas.android.com/apk/res/android">
-
-        <TextView
-            android:text="Port"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <EditText
-                android:id="@+id/portconnectText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/buttonNotClicked" />
-    </LinearLayout>
-
-        <Button android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:background="?attr/colorPrimary"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:paddingRight="25dp"
+            android:paddingBottom="10dp"
+            android:text="IP"
+            android:textSize="15dp" />
+
+        <EditText
+            android:id="@+id/ipconnectText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@color/buttonNotClicked" />
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:background="?attr/colorPrimary"
+            android:padding="10dp"
+            android:text="Port"
+            android:textSize="15dp" />
+
+        <EditText
+            android:id="@+id/portconnectText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@color/buttonNotClicked" />
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:orientation="horizontal">
+
+        <Button
             android:id="@+id/ipConnectBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="Connect" />
 
+        <Button
+            android:id="@+id/ipExitBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Exit" />
     </LinearLayout>
+</LinearLayout>

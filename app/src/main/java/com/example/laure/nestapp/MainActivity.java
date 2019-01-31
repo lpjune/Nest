@@ -159,20 +159,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         final EditText ip_text = (EditText)dialoglayout.findViewById(R.id.ipconnectText);
                         final EditText port_text = (EditText)dialoglayout.findViewById(R.id.portconnectText);
 
-                        ip_text.setText("130.18.64.135");
+                        ip_text.setText("192.168.0.5");
                         port_text.setText("65432");
 
                         Button ip_button = (Button)dialoglayout.findViewById(R.id.ipConnectBtn);
+                        Button ip_exit_button = dialoglayout.findViewById(R.id.ipExitBtn);
 
                         final AlertDialog alertDialog = builder.create();
 
                         ip_button.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                // ... original code here
                                 String return_ip = ip_text.getText().toString();
                                 String return_port = port_text.getText().toString();
-                                
+
                                 TcpClient.getSERVER_IP(return_ip);
                                 TcpClient.getSERVER_PORT(return_port);
 
@@ -180,6 +180,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 alertDialog.dismiss();
                             }
                         });
+
+                        ip_exit_button.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                alertDialog.dismiss();
+                            }
+                        });
+
                         alertDialog.show();
                         return true;
 
