@@ -39,6 +39,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, Switch.OnCheckedChangeListener{
 
+    public boolean server_status;
     // Button/Switch declaration
     private ConstraintLayout logView;
     private Button nextButton, backButton, systemHaltButton, logButton;
@@ -127,9 +128,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         raisePadSwitch.setOnCheckedChangeListener(this);
     }
 
+    public void postToast(CharSequence text) {
+        Context context = getApplicationContext();
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+    }
 
     public void connectToServer() {
         new MainActivity.ConnectTask().execute("");
+        if(server_status == false){
+            postToast("Could not connect");
+        }
+        if(server_status) {
+            postToast("Connected");
+        }
+
         return;
     }
 
@@ -200,6 +215,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         arrayList.clear();
                         // notify the adapter that the data set has changed.
                         mAdapter.notifyDataSetChanged();
+                        postToast("Disconnected");
                         return true;
 
                     case R.id.menuSettingsBtn:
@@ -364,6 +380,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //    }
 
 
+    public void getServerStatus() {
+        this.server_status = mTcpClient.mRun;
+        return;
+    }
+
     // connect class
     public class ConnectTask extends AsyncTask<String, String, TcpClient> {
 
@@ -380,6 +401,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             });
             mTcpClient.run();
+            getServerStatus();
 
             return null;
         }

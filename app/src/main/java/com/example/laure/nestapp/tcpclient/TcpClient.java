@@ -31,7 +31,7 @@ public class TcpClient {
     // sends message received notifications
     private OnMessageReceived mMessageListener = null;
     // while this is true, the server will continue running
-    private boolean mRun = true;
+    public boolean mRun = false;
     // used to send messages
     private PrintWriter mBufferOut;
     // used to read messages from the server
@@ -88,7 +88,7 @@ public class TcpClient {
 
     public void run() {
 
-        mRun = true;
+        mRun = false;
 
         try {
             // gets IP
@@ -98,7 +98,6 @@ public class TcpClient {
 
             // create a socket to make the connection with the server
             Socket socket = new Socket(serverAddr, SERVER_PORT);
-
             try {
 
                 //sends the message to the server
@@ -106,7 +105,8 @@ public class TcpClient {
 
                 //receives the message which the server sends back
                 mBufferIn = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-
+                sendMessage("Connected");
+                mRun = true;
                 //in this while the client listens for the messages sent by the server
                 while (mRun) {
 
@@ -122,7 +122,7 @@ public class TcpClient {
                 Log.e("RESPONSE FROM SERVER", "S: Received Message: '" + mServerMessage + "'");
 
             } catch (Exception e) {
-
+                mRun = false;
                 Log.e("TCP", "S: Error", e);
 
             } finally {
@@ -132,7 +132,7 @@ public class TcpClient {
             }
 
         } catch (Exception e) {
-
+            mRun = false;
             Log.e("TCP", "C: Error", e);
 
         }
