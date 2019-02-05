@@ -33,6 +33,7 @@ import android.widget.VideoView;
 import com.example.laure.nestapp.tcpclient.ClientListAdapter;
 import com.example.laure.nestapp.tcpclient.TcpClient;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 
@@ -409,9 +410,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         protected void onProgressUpdate(String... values) {
             super.onProgressUpdate(values);
-
+            //Local time zone
+            SimpleDateFormat dateFormatLocal = new SimpleDateFormat("HH:mm:ss");
+            String timestamp = dateFormatLocal.toString();
             //in the arrayList we add the messaged received from server
-            arrayList.add(values[0]);
+            arrayList.add(timestamp + ": " + values[0]);
             // notify the adapter that the data set has changed. This means that new message received
             // from server was added to the list
             mAdapter.notifyDataSetChanged();
