@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
+
 
 import com.example.laure.nestapp.MainActivity;
 import com.example.laure.nestapp.R;

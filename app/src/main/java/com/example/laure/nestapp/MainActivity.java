@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.PopupWindow;
@@ -26,7 +27,6 @@ import android.os.StrictMode;
 
 // client activity imports
 import android.os.AsyncTask;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.VideoView;
 
@@ -35,7 +35,7 @@ import com.example.laure.nestapp.tcpclient.TcpClient;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
+import java.util.Date;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, Switch.OnCheckedChangeListener{
@@ -68,33 +68,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         arrayList = new ArrayList<String>();
 
 
-        final EditText editText = findViewById(R.id.editText);
-        Button send = findViewById(R.id.send_button);
 
         //relate the listView from java to the one created in xml
         mList = findViewById(R.id.list);
         mAdapter = new ClientListAdapter(this, arrayList);
         mList.setAdapter(mAdapter);
 
-        send.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                String message = editText.getText().toString();
-
-                //add the text in the arrayList
-                arrayList.add("c: " + message);
-
-                //sends the message to the server
-                if (mTcpClient != null) {
-                    mTcpClient.sendMessage(message);
-                }
-
-                //refresh the list
-                mAdapter.notifyDataSetChanged();
-                editText.setText("");
-            }
-        });
 
 
         // TextView initializers
@@ -175,7 +154,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         final EditText ip_text = (EditText)dialoglayout.findViewById(R.id.ipconnectText);
                         final EditText port_text = (EditText)dialoglayout.findViewById(R.id.portconnectText);
 
-                        ip_text.setText("192.168.0.5");
+                        ip_text.setText("192.168.0.7");
                         port_text.setText("65432");
 
                         Button ip_button = (Button)dialoglayout.findViewById(R.id.ipConnectBtn);
@@ -411,8 +390,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         protected void onProgressUpdate(String... values) {
             super.onProgressUpdate(values);
             //Local time zone
-            SimpleDateFormat dateFormatLocal = new SimpleDateFormat("HH:mm:ss");
-            String timestamp = dateFormatLocal.toString();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
+            String timestamp = simpleDateFormat.format(new Date());
             //in the arrayList we add the messaged received from server
             arrayList.add(timestamp + ": " + values[0]);
             // notify the adapter that the data set has changed. This means that new message received
