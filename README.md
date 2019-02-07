@@ -3,7 +3,7 @@
 ## Stage 1 Design:
 ![Imgur](https://i.imgur.com/l1jvM1J.jpg)
 ## Stage 2: Build
-![Imgur](https://imgur.com/a/DLEk1Bz.jpg)
+![Imgur](https://i.imgur.com/tgX5rmz.png)
 
 ## IMPRESS Lab at Mississippi State University
 http://impress.ece.msstate.edu/research/projects/nest/
