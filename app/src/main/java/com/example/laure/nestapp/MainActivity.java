@@ -3,6 +3,7 @@ package com.example.laure.nestapp;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +22,7 @@ import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.os.StrictMode;
 
@@ -41,17 +43,21 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, Switch.OnCheckedChangeListener{
 
     public boolean server_status;
+    private boolean on_off_status;
     // Button/Switch declaration
     private ConstraintLayout logView;
-    private Button nextButton, backButton, systemHaltButton, logButton;
+    private Button nextButton, backButton, systemHaltButton, logButton, onOffButton;
     private Switch doorsSwitch, roofSwitch, extendPadSwitch, raisePadSwitch;
     private RadioButton backDot, nextDot;
+    private TextView connectionView;
 
     // client activity declarations
     private ListView mList;
     private ArrayList<String> arrayList;
     private ClientListAdapter mAdapter;
     private TcpClient mTcpClient;
+
+
 
 
     @Override
@@ -74,10 +80,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mAdapter = new ClientListAdapter(this, arrayList);
         mList.setAdapter(mAdapter);
 
-
-
         // TextView initializers
         logView = findViewById(R.id.logView);
+        connectionView = findViewById(R.id.connectionView);
 
 
         // Button initializers
@@ -88,6 +93,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         RadioGroup dotGroup = findViewById(R.id.rgroup);
         backDot = findViewById(R.id.back_dot);
         nextDot = findViewById(R.id.next_dot);
+        onOffButton = findViewById(R.id.onOffButton);
 
         // Switch initializers
         doorsSwitch = findViewById(R.id.doorsSwitch);
@@ -100,6 +106,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         backButton.setOnClickListener(this);
         systemHaltButton.setOnClickListener(this);
         logButton.setOnClickListener(this);
+        onOffButton.setOnClickListener(this);
 
         /// Switch OnClickListeners
         doorsSwitch.setOnCheckedChangeListener(this);
@@ -188,7 +195,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         // disconnect
                         mTcpClient.stopClient();
                         mTcpClient = null;
-
+                        connectionView.setText("Disconnected");
+                        connectionView.setTextColor(Color.parseColor("#FFFFFF"));
                         postToast("Disconnected");
                         return true;
 
@@ -231,6 +239,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 request = "nextButton";
                 backDot.setChecked(false);
                 nextDot.setChecked(true);
+                sendButtonMessage(request);
+                break;
+
+            case R.id.onOffButton:
+                request = "switchPower";
+                if(!on_off_status) {
+                    onOffButton.setText("Turn Off");
+                    on_off_status = true;
+                }
+                else {
+                    onOffButton.setText("Turn On");
+                    on_off_status = false;
+                }
                 sendButtonMessage(request);
                 break;
 
@@ -393,6 +414,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if(progressCount == 0){
                 if(server_status){
                     postToast("Connected");
+                    connectionView.setText("Connected");
+                    connectionView.setTextColor(Color.GREEN);
                     progressCount++;
             }}
         }
