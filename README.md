@@ -5,5 +5,7 @@
 ## Stage 2: Build
 ![Imgur](https://i.imgur.com/tgX5rmz.png)
 
+# Camera Stream currently in progress
+
 ## IMPRESS Lab at Mississippi State University
 http://impress.ece.msstate.edu/research/projects/nest/
