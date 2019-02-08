@@ -118,13 +118,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void connectToServer() {
         new MainActivity.ConnectTask().execute("");
-        if(server_status == false){
-            postToast("Could not connect");
-        }
-        if(server_status) {
-            postToast("Connected");
-        }
-
         return;
     }
 
@@ -188,13 +181,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     case R.id.menuDisconnectBtn:
                         request = "menuDisconnectBtn";
-                        // disconnect
-                        mTcpClient.stopClient();
-                        mTcpClient = null;
                         // clear the data set
                         arrayList.clear();
                         // notify the adapter that the data set has changed.
                         mAdapter.notifyDataSetChanged();
+                        // disconnect
+                        mTcpClient.stopClient();
+                        mTcpClient = null;
+
                         postToast("Disconnected");
                         return true;
 
@@ -367,7 +361,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     // connect class
     public class ConnectTask extends AsyncTask<String, String, TcpClient> {
-
+        int progressCount = 0;
         @Override
         protected TcpClient doInBackground(String... message) {
 
@@ -381,8 +375,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             });
             mTcpClient.run();
-            getServerStatus();
-
             return null;
         }
 
@@ -397,6 +389,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             // notify the adapter that the data set has changed. This means that new message received
             // from server was added to the list
             mAdapter.notifyDataSetChanged();
+            getServerStatus();
+            if(progressCount == 0){
+                if(server_status){
+                    postToast("Connected");
+                    progressCount++;
+            }}
         }
     }
 }

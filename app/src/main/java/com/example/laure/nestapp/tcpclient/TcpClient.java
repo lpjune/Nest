@@ -84,6 +84,7 @@ public class TcpClient {
         mBufferIn = null;
         mBufferOut = null;
         mServerMessage = null;
+        
     }
 
     public void run() {
@@ -105,7 +106,6 @@ public class TcpClient {
 
                 //receives the message which the server sends back
                 mBufferIn = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                sendMessage("Connected");
                 mRun = true;
                 //in this while the client listens for the messages sent by the server
                 while (mRun) {
