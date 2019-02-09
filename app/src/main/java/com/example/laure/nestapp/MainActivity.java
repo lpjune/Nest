@@ -40,7 +40,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, Switch.OnCheckedChangeListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     public boolean server_status;
     private boolean on_off_status;
@@ -109,10 +109,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         onOffButton.setOnClickListener(this);
 
         /// Switch OnClickListeners
-        doorsSwitch.setOnCheckedChangeListener(this);
-        roofSwitch.setOnCheckedChangeListener(this);
-        extendPadSwitch.setOnCheckedChangeListener(this);
-        raisePadSwitch.setOnCheckedChangeListener(this);
+        doorsSwitch.setOnClickListener(this);
+        roofSwitch.setOnClickListener(this);
+        extendPadSwitch.setOnClickListener(this);
+        raisePadSwitch.setOnClickListener(this);
     }
 
     public void postToast(CharSequence text) {
@@ -228,6 +228,43 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Change Request Code/ Request Parameters
         switch (v.getId()){
 
+            case R.id.doorsSwitch:
+                if (doorsSwitch.isChecked()){
+                    request = "doorsSwitchOn";
+                }
+                else {
+                    request = "doorsSwitchOff";
+                }
+                sendButtonMessage(request);
+                break;
+            case R.id.roofSwitch:
+                if (roofSwitch.isChecked()){
+                    request = "roofSwitchOn";
+                }
+                else {
+                    request = "roofSwitchOff";
+                }
+                sendButtonMessage(request);
+                break;
+            case R.id.extendPadSwitch:
+                if (extendPadSwitch.isChecked()){
+                    request = "extendPadSwitchOn";
+                }
+                else {
+                    request = "extendPadSwitchOff";
+                }
+                sendButtonMessage(request);
+                break;
+            case R.id.raisePadSwitch:
+                if (raisePadSwitch.isChecked()){
+                    request = "raisePadSwitchOn";
+                }
+                else {
+                    request = "raisePadSwitchOff";
+                }
+                sendButtonMessage(request);
+                break;
+
             case R.id.backButton:
                 request = "backButton";
                 nextDot.setChecked(false);
@@ -277,56 +314,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         sendRequest(request);
     }
 
-    @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        String request = "";
-        String checked = Boolean.toString(isChecked);
-
-        // Change Request Code/ Request Parameters
-        switch(buttonView.getId()){
-            case R.id.doorsSwitch:
-                if (doorsSwitch.isChecked()){
-                    request = "doorsSwitchOn";
-                }
-                else {
-                    request = "doorsSwitchOff";
-                }
-                sendButtonMessage(request);
-                break;
-            case R.id.roofSwitch:
-                if (roofSwitch.isChecked()){
-                    request = "roofSwitchOn";
-                }
-                else {
-                    request = "roofSwitchOff";
-                }
-                sendButtonMessage(request);
-                break;
-            case R.id.extendPadSwitch:
-                if (extendPadSwitch.isChecked()){
-                    request = "extendPadSwitchOn";
-                }
-                else {
-                    request = "extendPadSwitchOff";
-                }
-                sendButtonMessage(request);
-                break;
-            case R.id.raisePadSwitch:
-                if (raisePadSwitch.isChecked()){
-                    request = "raisePadSwitchOn";
-                }
-                else {
-                    request = "raisePadSwitchOff";
-                }
-                sendButtonMessage(request);
-                break;
+    public void checkSwitchError(String message) {
+        if(message.contains("Door Error")) {
+            boolean currentState = doorsSwitch.isChecked();
+            doorsSwitch.setChecked(!currentState);
         }
-
-        request += checked;
-
-        //SEND REQUEST HERE
-        sendRequest(request);
+        else if (message.contains("Roof Error")) {
+            boolean currentState = roofSwitch.isChecked();
+            roofSwitch.setChecked(!currentState);
+        }
+        else if (message.contains("Extend Error")) {
+            boolean currentState = extendPadSwitch.isChecked();
+            extendPadSwitch.setChecked(!currentState);
+        }
+        else if (message.contains("Raise Error")) {
+            boolean currentState = raisePadSwitch.isChecked();
+            raisePadSwitch.setChecked(!currentState);
+        }
+        else {
+            return;
+        }
     }
+
 
     public boolean sendButtonMessage(String request) {
         try {
@@ -410,6 +419,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             // notify the adapter that the data set has changed. This means that new message received
             // from server was added to the list
             mAdapter.notifyDataSetChanged();
+            String message = arrayList.get(arrayList.size()-1);
+            if(message.contains("Error")){
+                checkSwitchError(message);
+            }
             getServerStatus();
             if(progressCount == 0){
                 if(server_status){
