@@ -1,4 +1,4 @@
-package com.example.laure.nestapp.tcpclient;
+package com.example.laure.Java.tcpclient;
 
 import android.content.Context;
 import android.view.LayoutInflater;

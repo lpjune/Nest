@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_color_spectrum"
-    tools:context=".MainActivity"
+    tools:context="com.example.laure.Java.MainActivity"
     tools:layout_editor_absoluteY="25dp">
 
 

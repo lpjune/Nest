@@ -1,13 +1,7 @@
-package com.example.laure.nestapp.tcpclient;
+package com.example.laure.Java.tcpclient;
 
-import android.content.Context;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
 
-
-import com.example.laure.nestapp.MainActivity;
-import com.example.laure.nestapp.R;
 
 import java.net.InetAddress;
 import java.net.Socket;
@@ -16,8 +10,6 @@ import java.io.BufferedWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-
-import static java.sql.DriverManager.println;
 
 
 public class TcpClient {

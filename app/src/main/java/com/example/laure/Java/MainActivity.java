@@ -1,24 +1,18 @@
-package com.example.laure.nestapp;
+package com.example.laure.Java;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.PopupMenu;
-import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Switch;
@@ -30,10 +24,10 @@ import android.os.StrictMode;
 // client activity imports
 import android.os.AsyncTask;
 import android.widget.ListView;
-import android.widget.VideoView;
 
-import com.example.laure.nestapp.tcpclient.ClientListAdapter;
-import com.example.laure.nestapp.tcpclient.TcpClient;
+import com.example.laure.nestapp.R;
+import com.example.laure.Java.tcpclient.ClientListAdapter;
+import com.example.laure.Java.tcpclient.TcpClient;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -124,10 +118,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void connectToServer() {
-        new MainActivity.ConnectTask().execute("");
+        new ConnectTask().execute("");
         return;
     }
 
+    public void displayConnected() {
+        postToast("Connected");
+        connectionView.setText("Connected");
+        connectionView.setTextColor(Color.GREEN);
+        return;
+    }
 
     public void showPopup(final View v) {
         final PopupMenu popup = new PopupMenu(MainActivity.this, v);
@@ -151,13 +151,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         builder.setView(dialoglayout);
                         builder.setCancelable(false);
 
-                        final EditText ip_text = (EditText)dialoglayout.findViewById(R.id.ipconnectText);
-                        final EditText port_text = (EditText)dialoglayout.findViewById(R.id.portconnectText);
+                        final EditText ip_text = dialoglayout.findViewById(R.id.ipconnectText);
+                        final EditText port_text = dialoglayout.findViewById(R.id.portconnectText);
 
                         ip_text.setText("192.168.0.7");
                         port_text.setText("65432");
 
-                        Button ip_button = (Button)dialoglayout.findViewById(R.id.ipConnectBtn);
+                        Button ip_button = dialoglayout.findViewById(R.id.ipConnectBtn);
                         Button ip_exit_button = dialoglayout.findViewById(R.id.ipExitBtn);
 
                         final AlertDialog alertDialog = builder.create();
@@ -367,21 +367,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     // enable connect/disconnect buttons
-//    @Override
-//    public boolean onPrepareOptionsMenu(Menu menu) {
-//
-//        if (mTcpClient != null) {
-//            // if the client is connected, enable the connect button and disable the disconnect one
-//            menuConnectButton.setEnabled(true);
-//            menuDisconnectButton.setEnabled(false);
-//        } else {
-//            // if the client is disconnected, enable the disconnect button and disable the connect one
-//            menuConnectButton.setEnabled(false);
-//            menuDisconnectButton.setEnabled(true);
-//        }
-//
-//        return super.onPrepareOptionsMenu(menu);
-//    }
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        Button menuConnectButton = findViewById(R.id.menuConnectBtn);
+        Button menuDisconnectButton = findViewById(R.id.menuDisconnectBtn);
+        getServerStatus();
+        if (!server_status) {
+            // if the client is connected, enable the connect button and disable the disconnect one
+
+            menuConnectButton.setEnabled(true);
+            menuDisconnectButton.setEnabled(false);
+        } else {
+            // if the client is disconnected, enable the disconnect button and disable the connect one
+            menuConnectButton.setEnabled(false);
+            menuDisconnectButton.setEnabled(true);
+        }
+
+        return super.onPrepareOptionsMenu(menu);
+    }
 
 
     public void getServerStatus() {
@@ -389,9 +392,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return;
     }
 
-    // connect class
+    public String getTimestamp() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
+        String timestamp = simpleDateFormat.format(new Date());
+        return timestamp;
+    }
+
     public class ConnectTask extends AsyncTask<String, String, TcpClient> {
-        int progressCount = 0;
+
+        private int progressCount = 0;
+
         @Override
         protected TcpClient doInBackground(String... message) {
 
@@ -412,8 +422,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         protected void onProgressUpdate(String... values) {
             super.onProgressUpdate(values);
             //Local time zone
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
-            String timestamp = simpleDateFormat.format(new Date());
+            String timestamp = getTimestamp();
             //in the arrayList we add the messaged received from server
             arrayList.add(timestamp + ": " + values[0]);
             // notify the adapter that the data set has changed. This means that new message received
@@ -426,11 +435,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             getServerStatus();
             if(progressCount == 0){
                 if(server_status){
-                    postToast("Connected");
-                    connectionView.setText("Connected");
-                    connectionView.setTextColor(Color.GREEN);
+                    displayConnected();
                     progressCount++;
-            }}
+                }}
         }
     }
 }
