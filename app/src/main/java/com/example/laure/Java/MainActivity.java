@@ -137,11 +137,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public boolean onMenuItemClick(android.view.MenuItem item) {
-                String request = "";
                 switch (item.getItemId()) {
                     case R.id.menuConnectBtn:
                         popup.dismiss();
-                        request = "menuConnectBtn";
 
                         LayoutInflater inflater = getLayoutInflater();
                         View dialoglayout = inflater.inflate(R.layout.connect_menu, null);
@@ -187,7 +185,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         return true;
 
                     case R.id.menuDisconnectBtn:
-                        request = "menuDisconnectBtn";
                         // clear the data set
                         arrayList.clear();
                         // notify the adapter that the data set has changed.
@@ -201,12 +198,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         return true;
 
                     case R.id.menuSettingsBtn:
-                        request = "menuSettingsBtn";
                         return false;
 
                     case R.id.menuDiagnosticBtn:
-                        request = "menuDiagnosticBtn";
-                        sendButtonMessage(request);
                         PopupMenu popup2 = new PopupMenu(MainActivity.this, v);
                         popup2.inflate(R.menu.diagnostic_menu);
                         popup2.show();
