@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_color_spectrum"
     tools:context="com.example.laure.Java.MainActivity"
     tools:layout_editor_absoluteY="25dp">
 
@@ -32,12 +31,12 @@
         android:id="@+id/logButton"
         android:layout_width="24dp"
         android:layout_height="200dp"
+        android:layout_marginBottom="28dp"
         android:background="@drawable/menu"
         android:text="«"
         android:textColor="@color/ButtonTextColor"
         app:layout_constraintBottom_toTopOf="@id/systemHaltButton"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/camera_chan" />
+        app:layout_constraintRight_toRightOf="parent" />
 
 
     <!--Top Bar-->

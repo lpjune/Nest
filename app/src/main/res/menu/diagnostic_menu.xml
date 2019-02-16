@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:title="Check Battery" />
+        android:title="@string/check_battery" />
     <item
-        android:title="Check Door" />
+        android:title="@string/check_door" />
     <item
-        android:title="Check Roof" />
+        android:title="@string/check_roof" />
     <item
-        android:title="Check Platform" />
+        android:title="@string/check_platform" />
 </menu>

@@ -32,6 +32,7 @@ import com.example.laure.Java.tcpclient.TcpClient;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
@@ -192,7 +193,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         // disconnect
                         mTcpClient.stopClient();
                         mTcpClient = null;
-                        connectionView.setText("Disconnected");
+                        connectionView.setText(R.string.disconnected);
                         connectionView.setTextColor(Color.parseColor("#FFFFFF"));
                         postToast("Disconnected");
                         return true;
@@ -276,11 +277,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.onOffButton:
                 request = "switchPower";
                 if(!on_off_status) {
-                    onOffButton.setText("Turn Off");
+                    onOffButton.setText(R.string.turn_off);
                     on_off_status = true;
                 }
                 else {
-                    onOffButton.setText("Turn On");
+                    onOffButton.setText(R.string.turn_on);
                     on_off_status = false;
                 }
                 sendButtonMessage(request);
@@ -387,7 +388,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public String getTimestamp() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss", Locale.US);
         String timestamp = simpleDateFormat.format(new Date());
         return timestamp;
     }
