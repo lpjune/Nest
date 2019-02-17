@@ -15,13 +15,13 @@ import java.io.PrintWriter;
 public class TcpClient {
 
     // server computers IPV4 Address
-    public static String SERVER_IP;
-    public static int SERVER_PORT;
+    private static String SERVER_IP;
+    private static int SERVER_PORT;
 
     // message to send to the server
     private String mServerMessage;
     // sends message received notifications
-    private OnMessageReceived mMessageListener = null;
+    private OnMessageReceived mMessageListener;
     // while this is true, the server will continue running
     public boolean mRun = false;
     // used to send messages
@@ -41,8 +41,7 @@ public class TcpClient {
     }
 
     public static void getSERVER_PORT(String port) {
-        int p = Integer.parseInt(port);
-        TcpClient.SERVER_PORT = p;
+        TcpClient.SERVER_PORT = Integer.parseInt(port);
     }
 
 
@@ -132,7 +131,7 @@ public class TcpClient {
     }
 
     //Declare the interface. The method messageReceived(String message) will must be implemented in the MyActivity
-    //class at on asynckTask doInBackground
+    //class at on asyncTask doInBackground
     public interface OnMessageReceived {
         void messageReceived(String message);
     }

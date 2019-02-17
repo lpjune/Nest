@@ -35,9 +35,9 @@ import java.util.Date;
 import java.util.Locale;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    public boolean server_status;
+    private boolean server_status;
     private boolean on_off_status;
     // Button/Switch declaration
     private ConstraintLayout logView;
@@ -53,8 +53,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TcpClient mTcpClient;
 
 
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +65,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // client activity on create
         arrayList = new ArrayList<String>();
-
 
 
         //relate the listView from java to the one created in xml
@@ -85,7 +82,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         backButton = findViewById(R.id.backButton);
         systemHaltButton = findViewById(R.id.systemHaltButton);
         logButton = findViewById(R.id.logButton);
-        RadioGroup dotGroup = findViewById(R.id.rgroup);
         backDot = findViewById(R.id.back_dot);
         nextDot = findViewById(R.id.next_dot);
         onOffButton = findViewById(R.id.onOffButton);
@@ -110,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         raisePadSwitch.setOnClickListener(this);
     }
 
-    public void postToast(CharSequence text) {
+    private void postToast(CharSequence text) {
         Context context = getApplicationContext();
         int duration = Toast.LENGTH_SHORT;
 
@@ -118,16 +114,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         toast.show();
     }
 
-    public void connectToServer() {
+    private void connectToServer() {
         new ConnectTask().execute("");
-        return;
     }
 
-    public void displayConnected() {
+    private void displayConnected() {
         postToast("Connected");
         connectionView.setText("Connected");
         connectionView.setTextColor(Color.GREEN);
-        return;
     }
 
     public void showPopup(final View v) {
@@ -211,7 +205,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         Log.e("went to default", "went to default");
                         return false;
                 }
-                }
+            }
         });
     }
 
@@ -221,40 +215,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String request = "";
 
         // Change Request Code/ Request Parameters
-        switch (v.getId()){
+        switch (v.getId()) {
 
             case R.id.doorsSwitch:
-                if (doorsSwitch.isChecked()){
+                if (doorsSwitch.isChecked()) {
                     request = "doorsSwitchOn";
-                }
-                else {
+                } else {
                     request = "doorsSwitchOff";
                 }
                 sendButtonMessage(request);
                 break;
             case R.id.roofSwitch:
-                if (roofSwitch.isChecked()){
+                if (roofSwitch.isChecked()) {
                     request = "roofSwitchOn";
-                }
-                else {
+                } else {
                     request = "roofSwitchOff";
                 }
                 sendButtonMessage(request);
                 break;
             case R.id.extendPadSwitch:
-                if (extendPadSwitch.isChecked()){
+                if (extendPadSwitch.isChecked()) {
                     request = "extendPadSwitchOn";
-                }
-                else {
+                } else {
                     request = "extendPadSwitchOff";
                 }
                 sendButtonMessage(request);
                 break;
             case R.id.raisePadSwitch:
-                if (raisePadSwitch.isChecked()){
+                if (raisePadSwitch.isChecked()) {
                     request = "raisePadSwitchOn";
-                }
-                else {
+                } else {
                     request = "raisePadSwitchOff";
                 }
                 sendButtonMessage(request);
@@ -276,11 +266,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.onOffButton:
                 request = "switchPower";
-                if(!on_off_status) {
+                if (!on_off_status) {
                     onOffButton.setText(R.string.turn_off);
                     on_off_status = true;
-                }
-                else {
+                } else {
                     onOffButton.setText(R.string.turn_on);
                     on_off_status = false;
                 }
@@ -294,7 +283,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.logButton:
                 request = "logButton";
-                if (logView.getVisibility() == View.GONE){
+                if (logView.getVisibility() == View.GONE) {
                     logView.setVisibility(View.VISIBLE);
                     logButton.setText("»");
                 } else {
@@ -309,43 +298,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         sendRequest(request);
     }
 
-    public void checkSwitchError(String message) {
-        if(message.contains("Door Error")) {
+    private void checkSwitchError(String message) {
+        if (message.contains("Door Error")) {
             boolean currentState = doorsSwitch.isChecked();
             doorsSwitch.setChecked(!currentState);
-        }
-        else if (message.contains("Roof Error")) {
+        } else if (message.contains("Roof Error")) {
             boolean currentState = roofSwitch.isChecked();
             roofSwitch.setChecked(!currentState);
-        }
-        else if (message.contains("Extend Error")) {
+        } else if (message.contains("Extend Error")) {
             boolean currentState = extendPadSwitch.isChecked();
             extendPadSwitch.setChecked(!currentState);
-        }
-        else if (message.contains("Raise Error")) {
+        } else if (message.contains("Raise Error")) {
             boolean currentState = raisePadSwitch.isChecked();
             raisePadSwitch.setChecked(!currentState);
-        }
-        else {
-            return;
+        } else {
         }
     }
 
 
-    public boolean sendButtonMessage(String request) {
+    private void sendButtonMessage(String request) {
         try {
             mTcpClient.sendMessage(request);
             arrayList.add(request);
-            return true;
         } catch (Exception e) {
             Log.e("TCP", "S: Error", e);
-            return false;
         }
 
     }
 
-    private void sendRequest(String requestCode){
-        Toast.makeText(this,requestCode,Toast.LENGTH_SHORT).show();
+    private void sendRequest(String requestCode) {
+        Toast.makeText(this, requestCode, Toast.LENGTH_SHORT).show();
     }
 
 
@@ -382,18 +364,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    public void getServerStatus() {
+    private void getServerStatus() {
         this.server_status = mTcpClient.mRun;
-        return;
     }
 
-    public String getTimestamp() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss", Locale.US);
-        String timestamp = simpleDateFormat.format(new Date());
+    private String getTimestamp() {
+        String timestamp = new SimpleDateFormat("HH:mm:ss", Locale.US).format(new Date());
         return timestamp;
     }
 
-    public class ConnectTask extends AsyncTask<String, String, TcpClient> {
+    class ConnectTask extends AsyncTask<String, String, TcpClient> {
 
         private int progressCount = 0;
 
@@ -423,16 +403,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             // notify the adapter that the data set has changed. This means that new message received
             // from server was added to the list
             mAdapter.notifyDataSetChanged();
-            String message = arrayList.get(arrayList.size()-1);
-            if(message.contains("Error")){
+            String message = arrayList.get(arrayList.size() - 1);
+            if (message.contains("Error")) {
                 checkSwitchError(message);
             }
             getServerStatus();
-            if(progressCount == 0){
-                if(server_status){
+            if (progressCount == 0) {
+                if (server_status) {
                     displayConnected();
                     progressCount++;
-                }}
+                }
+            }
         }
     }
 }
