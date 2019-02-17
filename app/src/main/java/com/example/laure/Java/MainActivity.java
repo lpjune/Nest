@@ -1,5 +1,6 @@
 package com.example.laure.Java;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.constraint.ConstraintLayout;
@@ -14,7 +15,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupMenu;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ArrayList<String> arrayList;
     private ClientListAdapter mAdapter;
     private TcpClient mTcpClient;
+    private View v;
 
 
     @Override
@@ -118,10 +119,73 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         new ConnectTask().execute("");
     }
 
+    private void disconnectFromServer() {
+        // clear the data set
+        arrayList.clear();
+        // notify the adapter that the data set has changed.
+        mAdapter.notifyDataSetChanged();
+        // disconnect
+        mTcpClient.stopClient();
+        mTcpClient = null;
+        connectionView.setText(R.string.disconnected);
+        connectionView.setTextColor(Color.parseColor("#FFFFFF"));
+        postToast("Disconnected");
+    }
+
     private void displayConnected() {
         postToast("Connected");
-        connectionView.setText("Connected");
+        connectionView.setText(R.string.connected);
         connectionView.setTextColor(Color.GREEN);
+    }
+
+    public void showIPPopup(final View v) {
+        LayoutInflater inflater = getLayoutInflater();
+        View dialoglayout = inflater.inflate(R.layout.connect_menu, null);
+
+
+        final android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(MainActivity.this);
+        builder.setView(dialoglayout);
+        builder.setCancelable(false);
+
+        final EditText ip_text = dialoglayout.findViewById(R.id.ipconnectText);
+        final EditText port_text = dialoglayout.findViewById(R.id.portconnectText);
+
+        ip_text.setText("192.168.0.7");
+        port_text.setText("65432");
+
+        Button ip_button = dialoglayout.findViewById(R.id.ipConnectBtn);
+        Button ip_exit_button = dialoglayout.findViewById(R.id.ipExitBtn);
+
+        final AlertDialog alertDialog = builder.create();
+
+        ip_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String return_ip = ip_text.getText().toString();
+                String return_port = port_text.getText().toString();
+
+                TcpClient.getSERVER_IP(return_ip);
+                TcpClient.getSERVER_PORT(return_port);
+
+                connectToServer();
+                alertDialog.dismiss();
+            }
+        });
+
+        ip_exit_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+        alertDialog.show();
+    }
+
+    public void showDiagnosticPopup(final View v) {
+        PopupMenu popup2 = new PopupMenu(MainActivity.this, v);
+        popup2.inflate(R.menu.diagnostic_menu);
+        popup2.show();
     }
 
     public void showPopup(final View v) {
@@ -135,70 +199,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 switch (item.getItemId()) {
                     case R.id.menuConnectBtn:
                         popup.dismiss();
-
-                        LayoutInflater inflater = getLayoutInflater();
-                        View dialoglayout = inflater.inflate(R.layout.connect_menu, null);
-
-
-                        final android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(MainActivity.this);
-                        builder.setView(dialoglayout);
-                        builder.setCancelable(false);
-
-                        final EditText ip_text = dialoglayout.findViewById(R.id.ipconnectText);
-                        final EditText port_text = dialoglayout.findViewById(R.id.portconnectText);
-
-                        ip_text.setText("192.168.0.7");
-                        port_text.setText("65432");
-
-                        Button ip_button = dialoglayout.findViewById(R.id.ipConnectBtn);
-                        Button ip_exit_button = dialoglayout.findViewById(R.id.ipExitBtn);
-
-                        final AlertDialog alertDialog = builder.create();
-
-                        ip_button.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                String return_ip = ip_text.getText().toString();
-                                String return_port = port_text.getText().toString();
-
-                                TcpClient.getSERVER_IP(return_ip);
-                                TcpClient.getSERVER_PORT(return_port);
-
-                                connectToServer();
-                                alertDialog.dismiss();
-                            }
-                        });
-
-                        ip_exit_button.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                alertDialog.dismiss();
-                            }
-                        });
-
-                        alertDialog.show();
+                        showIPPopup(v);
                         return true;
 
                     case R.id.menuDisconnectBtn:
-                        // clear the data set
-                        arrayList.clear();
-                        // notify the adapter that the data set has changed.
-                        mAdapter.notifyDataSetChanged();
-                        // disconnect
-                        mTcpClient.stopClient();
-                        mTcpClient = null;
-                        connectionView.setText(R.string.disconnected);
-                        connectionView.setTextColor(Color.parseColor("#FFFFFF"));
-                        postToast("Disconnected");
+                        disconnectFromServer();
                         return true;
 
                     case R.id.menuSettingsBtn:
                         return false;
 
                     case R.id.menuDiagnosticBtn:
-                        PopupMenu popup2 = new PopupMenu(MainActivity.this, v);
-                        popup2.inflate(R.menu.diagnostic_menu);
-                        popup2.show();
+                        showDiagnosticPopup(v);
                         return true;
 
                     default:
@@ -293,7 +305,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 break;
         }
-
         //SEND REQUEST HERE
         sendRequest(request);
     }
@@ -311,7 +322,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else if (message.contains("Raise Error")) {
             boolean currentState = raisePadSwitch.isChecked();
             raisePadSwitch.setChecked(!currentState);
-        } else {
         }
     }
 
@@ -340,7 +350,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // disconnect
         mTcpClient.stopClient();
         mTcpClient = null;
-
     }
 
     // enable connect/disconnect buttons
@@ -369,8 +378,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private String getTimestamp() {
-        String timestamp = new SimpleDateFormat("HH:mm:ss", Locale.US).format(new Date());
-        return timestamp;
+        return new SimpleDateFormat("HH:mm:ss", Locale.US).format(new Date());
     }
 
     class ConnectTask extends AsyncTask<String, String, TcpClient> {
