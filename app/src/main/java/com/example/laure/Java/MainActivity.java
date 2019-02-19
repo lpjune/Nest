@@ -278,12 +278,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.onOffButton:
                 request = "switchPower";
-                if (!on_off_status) {
-                    onOffButton.setText(R.string.turn_off);
-                    on_off_status = true;
-                } else {
-                    onOffButton.setText(R.string.turn_on);
-                    on_off_status = false;
+                if(server_status) {
+                    onOffButton.setEnabled(true);
+                    if (!on_off_status) {
+                        onOffButton.setText(R.string.turn_off);
+                        on_off_status = true;
+                    } else {
+                        onOffButton.setText(R.string.turn_on);
+                        on_off_status = false;
+                    }
+                }
+                else {
+                    onOffButton.setEnabled(false);
                 }
                 sendButtonMessage(request);
                 break;
