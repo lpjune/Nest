@@ -1,4 +1,4 @@
-package com.example.laure.Java.tcpclient;
+package com.example.nest.TCPClient;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,12 +7,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.example.laure.nestapp.R;
+import com.example.nest.R;
 
 import java.util.ArrayList;
 
 
-// KEEPS LIST OF ITEMS TO/FROM SERVER
+// KEEPS LOG OF MESSAGES TO/FROM SERVER
 
 public class ClientListAdapter extends BaseAdapter {
 

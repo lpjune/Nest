@@ -1,66 +1,56 @@
-package com.example.laure.Java;
+package com.example.nest;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.graphics.Color;
+import android.os.AsyncTask;
+import android.os.StrictMode;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.RadioButton;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.os.StrictMode;
-
-
-// client activity imports
-import android.os.AsyncTask;
-import android.widget.ListView;
-
-import com.example.laure.nestapp.R;
-import com.example.laure.Java.tcpclient.ClientListAdapter;
-import com.example.laure.Java.tcpclient.TcpClient;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
+import com.example.nest.TCPClient.ClientListAdapter;
+import com.example.nest.TCPClient.TcpClient;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+import org.jetbrains.annotations.NotNull;
 
-    private boolean server_status;
-    private boolean on_off_status;
-    // Button/Switch declaration
-    private ConstraintLayout logView;
-    private Button nextButton, backButton, systemHaltButton, logButton, onOffButton;
-    private Switch doorsSwitch, roofSwitch, extendPadSwitch, raisePadSwitch;
-    private RadioButton backDot, nextDot;
-    private TextView connectionView;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     // client activity declarations
     private ListView mList;
     private ArrayList<String> arrayList;
     private ClientListAdapter mAdapter;
     private TcpClient mTcpClient;
-    private View v;
 
+    private boolean server_status;
+    private boolean on_off_status;
 
-    /**
-     * Remade
-     */
+    private Button nextButton, backButton, systemHaltButton, logButton, onOffButton;
+    private Switch doorsSwitch, roofSwitch, extendPadSwitch, raisePadSwitch;
+    private RadioButton backDot, nextDot;
+
+    private ConstraintLayout logView;
+    private TextView connectionView;
+
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -68,20 +58,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-
-        // client activity on create
-        arrayList = new ArrayList<String>();
-
-
         //relate the listView from java to the one created in xml
+        arrayList = new ArrayList<>();
         mList = findViewById(R.id.list);
         mAdapter = new ClientListAdapter(this, arrayList);
         mList.setAdapter(mAdapter);
 
-        // TextView initializers
         logView = findViewById(R.id.logView);
         connectionView = findViewById(R.id.connectionView);
-
 
         // Button initializers
         nextButton = findViewById(R.id.nextButton);
@@ -112,27 +96,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         raisePadSwitch.setOnClickListener(this);
     }
 
-    /**
-     * Remade
-     */
-    private void postToast(CharSequence text) {
-        Context context = getApplicationContext();
-        int duration = Toast.LENGTH_SHORT;
 
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        // disconnect
+        mTcpClient.stopClient();
+        mTcpClient = null;
     }
 
-    /**
-     * Remade
-     */
+
     private void connectToServer() {
         new ConnectTask().execute("");
     }
 
-    /**
-     * Remade
-     */
+    private void displayConnected() {
+        postToast("Connected");
+        connectionView.setText(R.string.connected);
+        connectionView.setTextColor(Color.GREEN);
+    }
+
+
     private void disconnectFromServer() {
         // clear the data set
         arrayList.clear();
@@ -141,152 +126,44 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // disconnect
         mTcpClient.stopClient();
         mTcpClient = null;
+        displayDisconnected();
+    }
+
+
+    private void displayDisconnected() {
+        postToast("Disconnected");
         connectionView.setText(R.string.disconnected);
         connectionView.setTextColor(Color.parseColor("#FFFFFF"));
-        postToast("Disconnected");
     }
 
-    /**
-     * Remade
-     */
-    private void displayConnected() {
-        postToast("Connected");
-        connectionView.setText(R.string.connected);
-        connectionView.setTextColor(Color.GREEN);
+
+    private void postToast(CharSequence text) {
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
 
-    /**
-     * Remade
-     */
-    public void showIPPopup(final View v) {
-        LayoutInflater inflater = getLayoutInflater();
-        View dialoglayout = inflater.inflate(R.layout.connect_menu, null);
 
-
-        final android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(MainActivity.this);
-        builder.setView(dialoglayout);
-        builder.setCancelable(false);
-
-        final EditText ip_text = dialoglayout.findViewById(R.id.ipconnectText);
-        final EditText port_text = dialoglayout.findViewById(R.id.portconnectText);
-
-        ip_text.setText("192.168.0.7");
-        port_text.setText("65432");
-
-        Button ip_button = dialoglayout.findViewById(R.id.ipConnectBtn);
-        Button ip_exit_button = dialoglayout.findViewById(R.id.ipExitBtn);
-
-        final AlertDialog alertDialog = builder.create();
-
-        ip_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String return_ip = ip_text.getText().toString();
-                String return_port = port_text.getText().toString();
-
-                TcpClient.getSERVER_IP(return_ip);
-                TcpClient.getSERVER_PORT(return_port);
-
-                connectToServer();
-                alertDialog.dismiss();
-            }
-        });
-
-        ip_exit_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alertDialog.dismiss();
-            }
-        });
-
-        alertDialog.show();
-    }
-
-    /**
-     * Remade
-     */
-    public void showDiagnosticPopup(final View v) {
-        PopupMenu popup2 = new PopupMenu(MainActivity.this, v);
-        popup2.inflate(R.menu.diagnostic_menu);
-        popup2.show();
-    }
-
-    /**
-     * Remade
-     */
-    public void showPopup(final View v) {
-        final PopupMenu popup = new PopupMenu(MainActivity.this, v);
-        popup.inflate(R.menu.burger_menu);
-        popup.show();
-        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-
-            @Override
-            public boolean onMenuItemClick(android.view.MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.menuConnectBtn:
-                        popup.dismiss();
-                        showIPPopup(v);
-                        return true;
-
-                    case R.id.menuDisconnectBtn:
-                        disconnectFromServer();
-                        return true;
-
-                    case R.id.menuSettingsBtn:
-                        return false;
-
-                    case R.id.menuDiagnosticBtn:
-                        showDiagnosticPopup(v);
-                        return true;
-
-                    default:
-                        Log.e("went to default", "went to default");
-                        return false;
-                }
-            }
-        });
-    }
-
-    /**
-     * Remade
-     */
     @Override
     public void onClick(View v) {
         String request = "";
-
-        // Change Request Code/ Request Parameters
-        switch (v.getId()) {
-
+        // switch case for different buttons
+        switch(v.getId()) {
             case R.id.doorsSwitch:
-                if (doorsSwitch.isChecked()) {
-                    request = "doorsSwitchOn";
-                } else {
-                    request = "doorsSwitchOff";
-                }
+                request = ((doorsSwitch.isChecked()) ? "doorsSwitchOn" : "doorsSwitchOff");
                 sendButtonMessage(request);
                 break;
+
             case R.id.roofSwitch:
-                if (roofSwitch.isChecked()) {
-                    request = "roofSwitchOn";
-                } else {
-                    request = "roofSwitchOff";
-                }
+                request = ((roofSwitch.isChecked()) ? "roofSwitchOn" : "roofSwitchOff");
                 sendButtonMessage(request);
                 break;
+
             case R.id.extendPadSwitch:
-                if (extendPadSwitch.isChecked()) {
-                    request = "extendPadSwitchOn";
-                } else {
-                    request = "extendPadSwitchOff";
-                }
+                request = ((extendPadSwitch.isChecked()) ? "extendPadSwitchOn" : "extendPadSwitchOff");
                 sendButtonMessage(request);
                 break;
+
             case R.id.raisePadSwitch:
-                if (raisePadSwitch.isChecked()) {
-                    request = "raisePadSwitchOn";
-                } else {
-                    request = "raisePadSwitchOff";
-                }
+                request = ((raisePadSwitch.isChecked()) ? "raisePadSwitchOn" : "raisePadSwitchOff");
                 sendButtonMessage(request);
                 break;
 
@@ -294,21 +171,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 request = "backButton";
                 nextDot.setChecked(false);
                 backDot.setChecked(true);
-                sendButtonMessage(request);
                 break;
 
             case R.id.nextButton:
                 request = "nextButton";
                 backDot.setChecked(false);
                 nextDot.setChecked(true);
-                sendButtonMessage(request);
                 break;
 
             case R.id.onOffButton:
-                request = "switchPower";
                 if(server_status) {
                     onOffButton.setEnabled(true);
                     if (!on_off_status) {
+                        request = "switchPower";
                         onOffButton.setText(R.string.turn_off);
                         on_off_status = true;
                     } else {
@@ -336,16 +211,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     logView.setVisibility(View.GONE);
                     logButton.setText("«");
                 }
-
                 break;
         }
-        //SEND REQUEST HERE
-        sendRequest(request);
+        postToast(request);
     }
 
-    /**
-     * Remade
-     */
+
     private void checkSwitchError(@NotNull String message) {
         if (message.contains("Door Error")) {
             boolean currentState = doorsSwitch.isChecked();
@@ -365,9 +236,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    /**
-     * Remade
-     */
+
     private void sendButtonMessage(String request) {
         try {
             mTcpClient.sendMessage(request);
@@ -375,73 +244,104 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } catch (Exception e) {
             Log.e("TCP", "S: Error", e);
         }
-
-    }
-
-    /**
-     * Remade
-     */
-    private void sendRequest(String requestCode) {
-        Toast.makeText(this, requestCode, Toast.LENGTH_SHORT).show();
     }
 
 
-    /**
-     * Remade
-     */
-    // CLIENT ACTIVITY METHODS
-    // pause server
-    @Override
-    protected void onPause() {
-        super.onPause();
+    public void showBurgerPopup(final View v) {
+        PopupMenu burger_popup = new PopupMenu(this, v);
+        burger_popup.getMenuInflater().inflate(R.menu.burger_menu, burger_popup.getMenu());
+        burger_popup.show();
+        burger_popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.menuConnectBtn:
+                        showConnectAlert();
+                        return true;
 
-        // disconnect
-        mTcpClient.stopClient();
-        mTcpClient = null;
+                    case R.id.menuDisconnectBtn:
+                        disconnectFromServer();
+                        return true;
+
+                    case R.id.menuDiagnosticBtn:
+                        showDiagnosticPopup(v);
+                        return true;
+
+                    case R.id.menuSettingsBtn:
+                        //show settings
+                        return true;
+
+                    default:
+                        return false;
+                }
+            }
+        });
     }
 
 
-    /**
-     * Deleted
-     */
-    // enable connect/disconnect buttons
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        Button menuConnectButton = findViewById(R.id.menuConnectBtn);
-        Button menuDisconnectButton = findViewById(R.id.menuDisconnectBtn);
-        getServerStatus();
-        if (!server_status) {
-            // if the client is connected, enable the connect button and disable the disconnect one
-
-            menuConnectButton.setEnabled(true);
-            menuDisconnectButton.setEnabled(false);
-        } else {
-            // if the client is disconnected, enable the disconnect button and disable the connect one
-            menuConnectButton.setEnabled(false);
-            menuDisconnectButton.setEnabled(true);
-        }
-
-        return super.onPrepareOptionsMenu(menu);
+    private void showDiagnosticPopup(View v) {
+        PopupMenu diagnostic_popup = new PopupMenu(this, v);
+        diagnostic_popup.getMenuInflater().inflate(R.menu.diagnostic_menu, diagnostic_popup.getMenu());
+        diagnostic_popup.show();
     }
 
-    /**
-     * Remade
-     */
+
+    private void showConnectAlert() {
+        LayoutInflater inflater = getLayoutInflater();
+        View connect_menu = inflater.inflate(R.layout.connect_menu, null);
+
+        final android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(MainActivity.this);
+        builder.setView(connect_menu);
+        builder.setCancelable(false);
+
+        final EditText ip_text = connect_menu.findViewById(R.id.ipconnectText);
+        final EditText port_text = connect_menu.findViewById(R.id.portconnectText);
+
+        ip_text.setText("192.168.0.7");
+        port_text.setText("65432");
+
+        Button ip_button = connect_menu.findViewById(R.id.ipConnectBtn);
+        Button ip_exit_button = connect_menu.findViewById(R.id.ipExitBtn);
+
+        final AlertDialog alertDialog = builder.create();
+
+        ip_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String return_ip = ip_text.getText().toString();
+                String return_port = port_text.getText().toString();
+
+                TcpClient.getSERVER_IP(return_ip);
+                TcpClient.getSERVER_PORT(return_port);
+
+                connectToServer();
+                alertDialog.dismiss();
+            }
+        });
+
+        ip_exit_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+        alertDialog.show();
+    }
+
+
     private void getServerStatus() {
         this.server_status = mTcpClient.mRun;
     }
 
-    /**
-     * Remade
-     */
+
     private String getTimestamp() {
         return new SimpleDateFormat("HH:mm:ss", Locale.US).format(new Date());
     }
 
-    //TODO
+
     class ConnectTask extends AsyncTask<String, String, TcpClient> {
 
-        private int progressCount = 0;
+        private boolean alreadyConnected = false;
 
         @Override
         protected TcpClient doInBackground(String... message) {
@@ -474,10 +374,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 checkSwitchError(message);
             }
             getServerStatus();
-            if (progressCount == 0) {
+            if (!alreadyConnected) {
                 if (server_status) {
                     displayConnected();
-                    progressCount++;
+                    alreadyConnected = true;
                 }
             }
         }

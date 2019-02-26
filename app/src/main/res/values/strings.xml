@@ -1,27 +1,27 @@
 <resources>
+    <string name="app_name">Nest</string>
     <string name="open_door">Open Door</string>
     <string name="open_roof">Open Roof</string>
     <string name="extend_pad">Extend Pad</string>
     <string name="raise_pad">Raise Pad</string>
-    <string name="menu_connect">Connect</string>
-    <string name="menu_disconnect">Disconnect</string>
+    <string name="system_halt">System Halt</string>
+    <string name="connect">Connect</string>
+    <string name="disconnect">Disconnect</string>
+    <string name="connected">Connected</string>
+    <string name="disconnected">Disconnected</string>
     <string name="menu_diagnostic">System Diagnostic</string>
     <string name="menu_settings">Settings</string>
     <string name="back_button">Back</string>
     <string name="next_button">Next</string>
     <string name="ip">IP</string>
     <string name="port">Port</string>
-    <string name="connect">Connect</string>
     <string name="exit">Exit</string>
     <string name="check_battery">Check Battery</string>
     <string name="check_door">Check Door</string>
     <string name="check_roof">Check Roof</string>
     <string name="check_platform">Check Platform</string>
     <string name="weather">Weather: XXX XXX</string>
-    <string name="connected">Connected</string>
-    <string name="disconnected">Disconnected</string>
     <string name="turn_on">Turn On</string>
     <string name="turn_off">Turn Off</string>
     <string name="left_arrow">«</string>
-
 </resources>

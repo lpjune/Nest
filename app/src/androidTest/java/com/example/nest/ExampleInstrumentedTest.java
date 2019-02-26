@@ -1,4 +1,4 @@
-package com.example.laure.nestapp;
+package com.example.nest;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.laure.nestapp", appContext.getPackageName());
+        assertEquals("com.example.nest", appContext.getPackageName());
     }
 }

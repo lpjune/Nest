@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <dimen name="switch_margin">10dp</dimen>
-    <dimen name="log_margin">8dp</dimen>
-    <string name="system_halt">System Halt</string>
-</resources>

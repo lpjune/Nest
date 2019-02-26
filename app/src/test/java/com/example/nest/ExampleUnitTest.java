@@ -1,4 +1,4 @@
-package com.example.laure.nestapp;
+package com.example.nest;
 
 import org.junit.Test;
 

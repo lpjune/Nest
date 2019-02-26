@@ -1,4 +1,4 @@
-package com.example.laure.Java.tcpclient;
+package com.example.nest.TCPClient;
 
 import android.util.Log;
 
@@ -14,7 +14,7 @@ import java.io.PrintWriter;
 
 public class TcpClient {
 
-    // server computers IPV4 Address
+    // server computer's IPV4 Address
     private static String SERVER_IP;
     private static int SERVER_PORT;
 
@@ -47,6 +47,7 @@ public class TcpClient {
 
     /**
      * Sends the message entered by client to the server
+     *
      * @param message text entered by client
      */
     public void sendMessage(String message) {
@@ -61,7 +62,7 @@ public class TcpClient {
      */
     public void stopClient() {
 
-        // send mesage that we are closing the connection
+        // send message that we are closing the connection
         sendMessage("Closed Connection");
 
         mRun = false;
@@ -75,7 +76,7 @@ public class TcpClient {
         mBufferIn = null;
         mBufferOut = null;
         mServerMessage = null;
-        
+
     }
 
     public void run() {
@@ -84,12 +85,12 @@ public class TcpClient {
 
         try {
             // gets IP
-            InetAddress serverAddr = InetAddress.getByName(SERVER_IP);
+            InetAddress serverAddress = InetAddress.getByName(SERVER_IP);
 
             Log.e("TCP Client", "C: Connecting...");
 
             // create a socket to make the connection with the server
-            Socket socket = new Socket(serverAddr, SERVER_PORT);
+            Socket socket = new Socket(serverAddress, SERVER_PORT);
             try {
 
                 //sends the message to the server
