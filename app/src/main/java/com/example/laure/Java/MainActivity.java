@@ -29,6 +29,8 @@ import com.example.laure.nestapp.R;
 import com.example.laure.Java.tcpclient.ClientListAdapter;
 import com.example.laure.Java.tcpclient.TcpClient;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -54,6 +56,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private View v;
 
 
+    /**
+     * Remade
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,6 +112,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         raisePadSwitch.setOnClickListener(this);
     }
 
+    /**
+     * Remade
+     */
     private void postToast(CharSequence text) {
         Context context = getApplicationContext();
         int duration = Toast.LENGTH_SHORT;
@@ -115,10 +123,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         toast.show();
     }
 
+    /**
+     * Remade
+     */
     private void connectToServer() {
         new ConnectTask().execute("");
     }
 
+    /**
+     * Remade
+     */
     private void disconnectFromServer() {
         // clear the data set
         arrayList.clear();
@@ -132,12 +146,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         postToast("Disconnected");
     }
 
+    /**
+     * Remade
+     */
     private void displayConnected() {
         postToast("Connected");
         connectionView.setText(R.string.connected);
         connectionView.setTextColor(Color.GREEN);
     }
 
+    /**
+     * Remade
+     */
     public void showIPPopup(final View v) {
         LayoutInflater inflater = getLayoutInflater();
         View dialoglayout = inflater.inflate(R.layout.connect_menu, null);
@@ -182,12 +202,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         alertDialog.show();
     }
 
+    /**
+     * Remade
+     */
     public void showDiagnosticPopup(final View v) {
         PopupMenu popup2 = new PopupMenu(MainActivity.this, v);
         popup2.inflate(R.menu.diagnostic_menu);
         popup2.show();
     }
 
+    /**
+     * Remade
+     */
     public void showPopup(final View v) {
         final PopupMenu popup = new PopupMenu(MainActivity.this, v);
         popup.inflate(R.menu.burger_menu);
@@ -221,7 +247,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
-
+    /**
+     * Remade
+     */
     @Override
     public void onClick(View v) {
         String request = "";
@@ -315,23 +343,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         sendRequest(request);
     }
 
-    private void checkSwitchError(String message) {
+    /**
+     * Remade
+     */
+    private void checkSwitchError(@NotNull String message) {
         if (message.contains("Door Error")) {
             boolean currentState = doorsSwitch.isChecked();
             doorsSwitch.setChecked(!currentState);
-        } else if (message.contains("Roof Error")) {
+        }
+        else if (message.contains("Roof Error")) {
             boolean currentState = roofSwitch.isChecked();
             roofSwitch.setChecked(!currentState);
-        } else if (message.contains("Extend Error")) {
+        }
+        else if (message.contains("Extend Error")) {
             boolean currentState = extendPadSwitch.isChecked();
             extendPadSwitch.setChecked(!currentState);
-        } else if (message.contains("Raise Error")) {
+        }
+        else if (message.contains("Raise Error")) {
             boolean currentState = raisePadSwitch.isChecked();
             raisePadSwitch.setChecked(!currentState);
         }
     }
 
-
+    /**
+     * Remade
+     */
     private void sendButtonMessage(String request) {
         try {
             mTcpClient.sendMessage(request);
@@ -342,11 +378,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    /**
+     * Remade
+     */
     private void sendRequest(String requestCode) {
         Toast.makeText(this, requestCode, Toast.LENGTH_SHORT).show();
     }
 
 
+    /**
+     * Remade
+     */
     // CLIENT ACTIVITY METHODS
     // pause server
     @Override
@@ -358,6 +400,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mTcpClient = null;
     }
 
+
+    /**
+     * Deleted
+     */
     // enable connect/disconnect buttons
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
@@ -378,15 +424,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return super.onPrepareOptionsMenu(menu);
     }
 
-
+    /**
+     * Remade
+     */
     private void getServerStatus() {
         this.server_status = mTcpClient.mRun;
     }
 
+    /**
+     * Remade
+     */
     private String getTimestamp() {
         return new SimpleDateFormat("HH:mm:ss", Locale.US).format(new Date());
     }
 
+    //TODO
     class ConnectTask extends AsyncTask<String, String, TcpClient> {
 
         private int progressCount = 0;

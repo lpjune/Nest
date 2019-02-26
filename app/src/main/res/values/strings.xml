@@ -22,5 +22,6 @@
     <string name="disconnected">Disconnected</string>
     <string name="turn_on">Turn On</string>
     <string name="turn_off">Turn Off</string>
+    <string name="left_arrow">«</string>
 
 </resources>

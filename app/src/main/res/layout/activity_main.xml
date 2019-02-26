@@ -33,7 +33,7 @@
         android:layout_height="200dp"
         android:layout_marginBottom="28dp"
         android:background="@drawable/menu"
-        android:text="«"
+        android:text="@string/left_arrow"
         android:textColor="@color/ButtonTextColor"
         app:layout_constraintBottom_toTopOf="@id/systemHaltButton"
         app:layout_constraintRight_toRightOf="parent" />
