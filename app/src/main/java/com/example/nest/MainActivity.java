@@ -19,6 +19,7 @@ import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.RadioButton;
 import androidx.appcompat.widget.SwitchCompat;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,7 +45,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private boolean server_status;
     private boolean on_off_status;
 
-    private Button nextButton, backButton, systemHaltButton, logButton, onOffButton;
+    private FloatingActionButton systemHaltButton;
+    private Button nextButton, backButton, logButton, onOffButton;
     private SwitchCompat doorsSwitch, roofSwitch, extendPadSwitch, raisePadSwitch;
     private RadioButton backDot, nextDot;
 
@@ -55,6 +57,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Hide the status bar.
+        View decorView = getWindow().getDecorView();
+        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);
 
         // allows network connections
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();

@@ -1,68 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Bottom Bar -->
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/control_panel"
-    android:layout_width="0dp"
-    android:layout_height="55dp"
-    android:layout_alignParentStart="true"
-    android:layout_alignParentTop="true"
-    android:layout_marginBottom="16dp"
-    android:layout_marginEnd="16dp"
-    android:layout_marginStart="16dp"
-    android:background="@color/buttonNotClicked"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toStartOf="@+id/systemHaltButton"
-    app:layout_constraintStart_toEndOf="@+id/burgerButton">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
 
+    <!-- Other components and views -->
 
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/doorsSwitch"
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:fabAlignmentMode="end"
+        android:backgroundTint="@color/buttonClicked">
+
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        app:layout_anchor="@id/bar"
+        android:weightSum="13">
+
+        <ImageButton
+            android:id="@+id/burgerButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_weight="1"
+            android:alpha=".75"
+            android:background="@drawable/round_menu_black_18dp"
+            android:onClick="showBurgerPopup"
+            android:scaleType="fitCenter" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/doorsSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/open_door"
+            android:textAlignment="viewEnd"
+            android:layout_weight="1"/>
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/roofSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/open_roof"
+            android:textAlignment="viewEnd"
+            android:layout_weight="1"/>
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/extendPadSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/extend_pad"
+            android:textAlignment="viewEnd"
+            android:layout_weight="1"/>
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/raisePadSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/raise_pad"
+            android:textAlignment="viewEnd"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+    </com.google.android.material.bottomappbar.BottomAppBar>
+
+    <!--System Halt FAB-->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/systemHaltButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/open_door"
-        android:textAlignment="viewEnd"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/roofSwitch"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_anchor="@id/bar"
+        />
 
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/roofSwitch"
+    <TextView android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/open_roof"
-        android:textAlignment="viewEnd"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/extendPadSwitch"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toEndOf="@+id/doorsSwitch"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="@string/system_halt"
+        android:elevation="6dp"
+        android:textSize="12sp"
+        android:textColor="#fff"
+        app:layout_anchor="@id/systemHaltButton"
+        app:layout_anchorGravity="center"/>
 
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/extendPadSwitch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/extend_pad"
-        android:textAlignment="viewEnd"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/raisePadSwitch"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/roofSwitch"
-        app:layout_constraintTop_toTopOf="parent" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/raisePadSwitch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/raise_pad"
-        android:textAlignment="viewEnd"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/extendPadSwitch"
-        app:layout_constraintTop_toTopOf="parent" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>

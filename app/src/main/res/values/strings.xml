@@ -4,7 +4,7 @@
     <string name="open_roof">Open Roof</string>
     <string name="extend_pad">Extend Pad</string>
     <string name="raise_pad">Raise Pad</string>
-    <string name="system_halt">System Halt</string>
+    <string name="system_halt">System \n    Halt</string>
     <string name="connect">Connect</string>
     <string name="disconnect">Disconnect</string>
     <string name="connected">Connected</string>
