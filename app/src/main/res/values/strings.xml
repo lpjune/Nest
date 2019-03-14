@@ -21,7 +21,7 @@
     <string name="check_roof">Check Roof</string>
     <string name="check_platform">Check Platform</string>
     <string name="weather">Weather: XXX XXX</string>
-    <string name="turn_on">Turn On</string>
-    <string name="turn_off">Turn Off</string>
+    <string name="turn_on">Turn On Motors</string>
+    <string name="turn_off">Turn Off Motors</string>
     <string name="left_arrow">«</string>
 </resources>

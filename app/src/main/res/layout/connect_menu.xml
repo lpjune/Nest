@@ -3,11 +3,11 @@
     android:id="@+id/connectLayout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:gravity="bottom"
+    android:gravity="fill_horizontal"
     android:orientation="vertical">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="match_parent"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="4dp"
@@ -28,18 +28,18 @@
 
         <EditText
             android:id="@+id/ipconnectText"
-            android:labelFor="@id/ipconnectText"
-            android:inputType="text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:background="@color/buttonNotClicked"
-            android:importantForAutofill="no" />
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:labelFor="@id/ipconnectText" />
     </LinearLayout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="match_parent"
         android:gravity="bottom"
         android:orientation="horizontal">
@@ -55,32 +55,34 @@
 
         <EditText
             android:id="@+id/portconnectText"
-            android:labelFor="@id/portconnectText"
-            android:inputType="text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:background="@color/buttonNotClicked" />
+            android:background="@color/buttonNotClicked"
+            android:inputType="text"
+            android:labelFor="@id/portconnectText" />
     </LinearLayout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="match_parent"
         android:gravity="bottom"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/ipConnectBtn"
-            style = "?android:attr/buttonBarButtonStyle"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="12dp"
             android:text="@string/connect" />
 
         <Button
             android:id="@+id/ipExitBtn"
-            style = "?android:attr/buttonBarButtonStyle"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/exit" />

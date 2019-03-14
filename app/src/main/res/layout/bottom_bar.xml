@@ -27,13 +27,13 @@
 
         <ImageButton
             android:id="@+id/burgerButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="48dp"
             android:layout_weight="1"
             android:alpha=".75"
-            android:background="@drawable/round_menu_black_18dp"
+            android:background="@drawable/ic_menu_blue_24dp"
             android:onClick="showBurgerPopup"
             android:scaleType="fitCenter" />
 
