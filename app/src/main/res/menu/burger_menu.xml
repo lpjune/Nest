@@ -4,8 +4,11 @@
         android:title="@string/connect" />
     <item android:id="@+id/menuDisconnectBtn"
         android:title="@string/disconnect" />
+    <item android:id="@+id/machineOnBtn"
+        android:title="@string/turn_on" />
     <item android:id="@+id/menuDiagnosticBtn"
         android:title="@string/menu_diagnostic" />
     <item android:id="@+id/menuSettingsBtn"
         android:title="@string/menu_settings" />
+
 </menu>

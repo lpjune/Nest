@@ -44,6 +44,8 @@
     <!--Top Bar-->
     <include layout="@layout/top_bar" />
 
+    <!--Connection Status-->
+    <include layout="@layout/connection_view"/>
 
     <!-- Bottom Bar -->
     <include layout="@layout/bottom_bar" />

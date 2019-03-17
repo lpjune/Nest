@@ -8,7 +8,7 @@
     <string name="connect">Connect</string>
     <string name="disconnect">Disconnect</string>
     <string name="connected">Connected</string>
-    <string name="disconnected">Disconnected</string>
+    <string name="disconnected">Not\nconnected</string>
     <string name="menu_diagnostic">System Diagnostic</string>
     <string name="menu_settings">Settings</string>
     <string name="back_button">Back</string>
@@ -21,7 +21,6 @@
     <string name="check_roof">Check Roof</string>
     <string name="check_platform">Check Platform</string>
     <string name="weather">Weather: XXX XXX</string>
-    <string name="turn_on">Turn On Motors</string>
-    <string name="turn_off">Turn Off Motors</string>
+    <string name="turn_on">Motor Power Switch</string>
     <string name="left_arrow">«</string>
 </resources>

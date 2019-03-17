@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // Hide the status bar.
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        
+
         // allows network connections
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -82,7 +82,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         logButton = findViewById(R.id.logButton);
         backDot = findViewById(R.id.back_dot);
         nextDot = findViewById(R.id.next_dot);
-        onOffButton = findViewById(R.id.onOffButton);
 
         // Switch initializers
         doorsSwitch = findViewById(R.id.doorsSwitch);
@@ -95,9 +94,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         backButton.setOnClickListener(this);
         systemHaltButton.setOnClickListener(this);
         logButton.setOnClickListener(this);
-        onOffButton.setOnClickListener(this);
 
-        /// Switch OnClickListeners
+        // Switch OnClickListeners
         doorsSwitch.setOnClickListener(this);
         roofSwitch.setOnClickListener(this);
         extendPadSwitch.setOnClickListener(this);
@@ -187,24 +185,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 nextDot.setChecked(true);
                 break;
 
-            case R.id.onOffButton:
-                if(server_status) {
-                    onOffButton.setEnabled(true);
-                    if (!on_off_status) {
-                        request = "switchPower";
-                        onOffButton.setText(R.string.turn_off);
-                        on_off_status = true;
-                    } else {
-                        onOffButton.setText(R.string.turn_on);
-                        on_off_status = false;
-                    }
-                }
-                else {
-                    onOffButton.setEnabled(false);
-                }
-                sendButtonMessage(request);
-                break;
-
             case R.id.systemHaltButton:
                 request = "systemHaltButton";
                 sendButtonMessage(request);
@@ -256,7 +236,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     public void showBurgerPopup(final View v) {
-        PopupMenu burger_popup = new PopupMenu(this, v);
+        final PopupMenu burger_popup = new PopupMenu(this, v);
         burger_popup.getMenuInflater().inflate(R.menu.burger_menu, burger_popup.getMenu());
         burger_popup.show();
         burger_popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -270,6 +250,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     case R.id.menuDisconnectBtn:
                         disconnectFromServer();
                         return true;
+
+                    case R.id.machineOnBtn:
+                        String request = "switchPower";
+                        if(server_status) {
+                            if (!on_off_status) {
+                                on_off_status = true;
+                            } else {
+                                on_off_status = false;
+                            }
+                            sendButtonMessage(request);
+                            return true;
+                        }
+                        else {
+                            postToast("Not connected to server");
+                            return false;
+                        }
 
                     case R.id.menuDiagnosticBtn:
                         showDiagnosticPopup(v);
