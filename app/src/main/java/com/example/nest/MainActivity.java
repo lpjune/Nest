@@ -21,6 +21,8 @@ import android.widget.PopupMenu;
 import android.widget.RadioButton;
 import androidx.appcompat.widget.SwitchCompat;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -154,38 +156,86 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // switch case for different buttons
         switch(v.getId()) {
             case R.id.doorsSwitch:
-                request = ((doorsSwitch.isChecked()) ? "doorsSwitchOn" : "doorsSwitchOff");
-                sendButtonMessage(request);
-                break;
+                if(!server_status) {
+                    doorsSwitch.setChecked(false);
+                    postToast("Not connected to server");
+                    break;
+                }
+                else {
+                    request = ((doorsSwitch.isChecked()) ? "doorsSwitchOn" : "doorsSwitchOff");
+                    sendButtonMessage(request);
+                    break;
+                }
 
             case R.id.roofSwitch:
-                request = ((roofSwitch.isChecked()) ? "roofSwitchOn" : "roofSwitchOff");
-                sendButtonMessage(request);
-                break;
+                if(!server_status) {
+                    roofSwitch.setChecked(false);
+                    postToast("Not connected to server");
+                    break;
+                }
+                else {
+                    request = ((roofSwitch.isChecked()) ? "roofSwitchOn" : "roofSwitchOff");
+                    sendButtonMessage(request);
+                    break;
+                }
 
             case R.id.extendPadSwitch:
-                request = ((extendPadSwitch.isChecked()) ? "extendPadSwitchOn" : "extendPadSwitchOff");
-                sendButtonMessage(request);
-                break;
+                if(!server_status) {
+                    extendPadSwitch.setChecked(false);
+                    postToast("Not connected to server");
+                    break;
+                }
+                else {
+                    request = ((extendPadSwitch.isChecked()) ? "extendPadSwitchOn" : "extendPadSwitchOff");
+                    sendButtonMessage(request);
+                    break;
+                }
 
             case R.id.raisePadSwitch:
-                request = ((raisePadSwitch.isChecked()) ? "raisePadSwitchOn" : "raisePadSwitchOff");
-                sendButtonMessage(request);
-                break;
+                if(!server_status) {
+                    raisePadSwitch.setChecked(false);
+                    postToast("Not connected to server");
+                    break;
+                }
+                else {
+                    request = ((raisePadSwitch.isChecked()) ? "raisePadSwitchOn" : "raisePadSwitchOff");
+                    sendButtonMessage(request);
+                    break;
+                }
 
             case R.id.backButton:
-                request = "backButton";
-                nextDot.setChecked(false);
-                backDot.setChecked(true);
-                break;
+                if(!server_status) {
+                    nextDot.setChecked(false);
+                    backDot.setChecked(true);
+                    postToast("Not connected to server");
+                    break;
+                }
+                else {
+                    request = "backButton";
+                    nextDot.setChecked(false);
+                    backDot.setChecked(true);
+                    break;
+                }
 
             case R.id.nextButton:
-                request = "nextButton";
-                backDot.setChecked(false);
-                nextDot.setChecked(true);
-                break;
+                if(!server_status) {
+                    backDot.setChecked(true);
+                    nextDot.setChecked(false);
+                    postToast("Not connected to server");
+                    break;
+                }
+                else {
+                    request = "nextButton";
+                    backDot.setChecked(false);
+                    nextDot.setChecked(true);
+                    break;
+                }
 
             case R.id.systemHaltButton:
+                if(!server_status) {
+                    postToast("Not connected to server");
+                    break;
+                }
                 request = "systemHaltButton";
                 sendButtonMessage(request);
                 break;
@@ -201,7 +251,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
         }
-        postToast(request);
     }
 
 
