@@ -2,14 +2,16 @@
 <!--Server log-->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="250dp"
-    android:layout_height="195dp"
+    android:layout_height="183dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/logView"
     android:visibility="gone"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
     app:layout_constraintRight_toLeftOf="@id/logButton"
     app:layout_constraintTop_toTopOf="@id/logButton"
     app:layout_constraintTop_toBottomOf="@id/logButton"
-    android:background="@color/buttonClicked">
+    android:background="@drawable/log_background">
 
     <ListView
         android:id="@+id/list"
@@ -20,3 +22,4 @@
         android:transcriptMode="alwaysScroll" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
