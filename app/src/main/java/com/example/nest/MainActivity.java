@@ -1,6 +1,10 @@
 package com.example.nest;
 
+import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.StrictMode;
 
@@ -17,6 +21,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.MediaController;
 import android.widget.PopupMenu;
 import android.widget.RadioButton;
 import androidx.appcompat.widget.SwitchCompat;
@@ -25,7 +30,13 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.Socket;
+import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -55,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private ConstraintLayout logView;
     private TextView connectionView;
+    private VideoView videoview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         logView = findViewById(R.id.logView);
         connectionView = findViewById(R.id.connectionView);
+        videoview = findViewById(R.id.videoView);
 
         // Button initializers
         nextButton = findViewById(R.id.nextButton);
@@ -293,12 +306,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.menuConnectBtn:
-                        showConnectAlert();
-                        return true;
+                        if(!server_status) {
+                            showConnectAlert();
+                            return true;
+                        }
+                        else {
+                            postToast("Already connected to server");
+                            return false;
+                        }
 
                     case R.id.menuDisconnectBtn:
-                        disconnectFromServer();
-                        return true;
+                        if(server_status) {
+                            disconnectFromServer();
+                            return true;
+                        }
+                        else {
+                            postToast("Not connected to server");
+                            return false;
+                        }
 
                     case R.id.machineOnBtn:
                         String request = "switchPower";
@@ -436,4 +461,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
     }
+
+    //TODO: stream client AsyncTask
 }
