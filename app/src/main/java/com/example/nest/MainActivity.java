@@ -25,6 +25,10 @@ import android.widget.MediaController;
 import android.widget.PopupMenu;
 import android.widget.RadioButton;
 import androidx.appcompat.widget.SwitchCompat;
+
+import com.github.niqdev.mjpeg.DisplayMode;
+import com.github.niqdev.mjpeg.Mjpeg;
+import com.github.niqdev.mjpeg.MjpegView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import android.widget.Switch;
@@ -35,6 +39,7 @@ import android.widget.VideoView;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;
@@ -68,6 +73,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView connectionView;
     private VideoView videoview;
 
+    MjpegView mjpegView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         logView = findViewById(R.id.logView);
         connectionView = findViewById(R.id.connectionView);
-        videoview = findViewById(R.id.videoView);
+//        videoview = findViewById(R.id.videoView);
 
         // Button initializers
         nextButton = findViewById(R.id.nextButton);
@@ -115,6 +122,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         roofSwitch.setOnClickListener(this);
         extendPadSwitch.setOnClickListener(this);
         raisePadSwitch.setOnClickListener(this);
+
+        mjpegView = findViewById(R.id.VIEW_NAME);
+        mjpegView.setTransparentBackground();
+
+        // ip of flask web server video
+        loadIpCam("http://192.168.0.7:5000/video_feed.mjpg");
+
+//        playStream("http://192.168.0.7:5000/video_feed.mjpg");
     }
 
 
@@ -126,6 +141,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mTcpClient.stopClient();
         mTcpClient = null;
     }
+
+
+    private void loadIpCam(String src) {
+        // src example = http://192.168.0.7:5000/video_feed.mjpg"
+        int TIMEOUT = 5;
+        Mjpeg.newInstance()
+                .credential("USERNAME", "PASSWORD")
+                .open(src, TIMEOUT)
+                .subscribe(inputStream -> {
+                    mjpegView.setSource(inputStream);
+                    mjpegView.setDisplayMode(DisplayMode.BEST_FIT);
+                    mjpegView.showFps(true);
+                });
+    }
+
+
+//    android media player, mjpg not supported
+
+//    private void playStream(String src){
+//        Uri UriSrc = Uri.parse(src);
+//        if(UriSrc == null){
+//            Toast.makeText(MainActivity.this,
+//                    "UriSrc == null", Toast.LENGTH_LONG).show();
+//        }else{
+//            videoview.setVideoURI(UriSrc);
+//            videoview.start();
+//            Toast.makeText(MainActivity.this,
+//                    "Connect: " + src,
+//                    Toast.LENGTH_LONG).show();
+//        }
+//    }
 
 
     private void connectToServer() {

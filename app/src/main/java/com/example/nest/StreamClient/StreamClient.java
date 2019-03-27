@@ -16,8 +16,8 @@ import java.nio.ByteBuffer;
 
 public class StreamClient {
     // server computer's IPV4 Address
-    private static String SERVER_IP;
-    private static int SERVER_PORT;
+    private static String SERVER_IP = "192.168.0.3";
+    private static int SERVER_PORT = 5005;
 
     // message to send to the server
     private String mServerMessage;
