@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mjpegView.setTransparentBackground();
 
         // ip of flask web server video
-        loadIpCam("http://192.168.0.7:5000/video_feed.mjpg");
+        loadIpCam("http://192.168.0.5:5000/video_feed");
 
 //        playStream("http://192.168.0.7:5000/video_feed.mjpg");
     }
@@ -155,24 +155,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     mjpegView.showFps(true);
                 });
     }
-
-
-//    android media player, mjpg not supported
-
-//    private void playStream(String src){
-//        Uri UriSrc = Uri.parse(src);
-//        if(UriSrc == null){
-//            Toast.makeText(MainActivity.this,
-//                    "UriSrc == null", Toast.LENGTH_LONG).show();
-//        }else{
-//            videoview.setVideoURI(UriSrc);
-//            videoview.start();
-//            Toast.makeText(MainActivity.this,
-//                    "Connect: " + src,
-//                    Toast.LENGTH_LONG).show();
-//        }
-//    }
-
 
     private void connectToServer() {
         new ConnectTask().execute("");
@@ -421,7 +403,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final EditText ip_text = connect_menu.findViewById(R.id.ipconnectText);
         final EditText port_text = connect_menu.findViewById(R.id.portconnectText);
 
-        ip_text.setText("192.168.0.7");
+        ip_text.setText("192.168.0.5");
         port_text.setText("65432");
 
         Button ip_button = connect_menu.findViewById(R.id.ipConnectBtn);
