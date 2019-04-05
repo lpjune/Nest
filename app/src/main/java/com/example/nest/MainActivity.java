@@ -18,6 +18,9 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -123,15 +126,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         extendPadSwitch.setOnClickListener(this);
         raisePadSwitch.setOnClickListener(this);
 
-        mjpegView = findViewById(R.id.VIEW_NAME);
-        mjpegView.setTransparentBackground();
-
         // ip of flask web server video
-        loadIpCam("http://192.168.0.5:5000/video_feed");
-
-//        playStream("http://192.168.0.7:5000/video_feed.mjpg");
+        String myURL = "http://192.168.0.5:5000/video_feed";
+        startVideo(myURL);
     }
-
 
     @Override
     protected void onPause() {
@@ -142,18 +140,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mTcpClient = null;
     }
 
-
-    private void loadIpCam(String src) {
-        // src example = http://192.168.0.7:5000/video_feed.mjpg"
-        int TIMEOUT = 5;
-        Mjpeg.newInstance()
-                .credential("USERNAME", "PASSWORD")
-                .open(src, TIMEOUT)
-                .subscribe(inputStream -> {
-                    mjpegView.setSource(inputStream);
-                    mjpegView.setDisplayMode(DisplayMode.BEST_FIT);
-                    mjpegView.showFps(true);
-                });
+    private void startVideo(String url) {
+        WebView myBrowser=(WebView)findViewById(R.id.webView);
+        WebSettings websettings = myBrowser.getSettings();
+        websettings.setSupportZoom(true);
+        websettings.setBuiltInZoomControls(true);
+        websettings.setJavaScriptEnabled(true);
+        myBrowser.setWebViewClient(new WebViewClient());
+        myBrowser.loadUrl(url);
     }
 
     private void connectToServer() {
@@ -489,6 +483,4 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
     }
-
-    //TODO: stream client AsyncTask
 }
