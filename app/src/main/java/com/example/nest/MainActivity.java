@@ -28,17 +28,11 @@ import android.widget.MediaController;
 import android.widget.PopupMenu;
 import android.widget.RadioButton;
 import androidx.appcompat.widget.SwitchCompat;
-
-import com.github.niqdev.mjpeg.DisplayMode;
-import com.github.niqdev.mjpeg.Mjpeg;
-import com.github.niqdev.mjpeg.MjpegView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -49,10 +43,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
-
 import com.example.nest.TCPClient.ClientListAdapter;
 import com.example.nest.TCPClient.TcpClient;
-
 import org.jetbrains.annotations.NotNull;
 
 
@@ -74,9 +66,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private ConstraintLayout logView;
     private TextView connectionView;
-    private VideoView videoview;
-
-    MjpegView mjpegView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,8 +116,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         raisePadSwitch.setOnClickListener(this);
 
         // ip of flask web server video
-        String myURL = "http://192.168.0.5:5000/video_feed";
-        startVideo(myURL);
+        String URL1 = "http://192.168.0.5:5000/video_feed1";
+        String URL2 = "http://192.168.0.5:5000/video_feed2";
+        startVideo(URL1);
     }
 
     @Override
@@ -141,13 +131,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void startVideo(String url) {
-        WebView myBrowser=(WebView)findViewById(R.id.webView);
-        WebSettings websettings = myBrowser.getSettings();
-        websettings.setSupportZoom(true);
-        websettings.setBuiltInZoomControls(true);
-        websettings.setJavaScriptEnabled(true);
-        myBrowser.setWebViewClient(new WebViewClient());
-        myBrowser.loadUrl(url);
+        try {
+            WebView myBrowser=(WebView)findViewById(R.id.webView);
+            WebSettings websettings = myBrowser.getSettings();
+            websettings.setSupportZoom(true);
+            websettings.setBuiltInZoomControls(true);
+            websettings.setJavaScriptEnabled(true);
+            myBrowser.setWebViewClient(new WebViewClient());
+            myBrowser.loadUrl(url);
+        } catch(Exception e) {
+            postToast("Could not get video: " + e);
+        }
     }
 
     private void connectToServer() {
@@ -188,6 +182,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         String request = "";
+        String URL1 = "http://192.168.0.5:5000/video_feed1";
+        String URL2 = "http://192.168.0.5:5000/video_feed2";
         // switch case for different buttons
         switch(v.getId()) {
             case R.id.doorsSwitch:
@@ -239,32 +235,44 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
 
             case R.id.backButton:
-                if(!server_status) {
-                    nextDot.setChecked(false);
-                    backDot.setChecked(true);
-                    postToast("Not connected to server");
-                    break;
-                }
-                else {
-                    request = "backButton";
-                    nextDot.setChecked(false);
-                    backDot.setChecked(true);
-                    break;
-                }
+                request = "backButton";
+                startVideo(URL1);
+                nextDot.setChecked(false);
+                backDot.setChecked(true);
+                break;
+//                if(!server_status) {
+//                    nextDot.setChecked(false);
+//                    backDot.setChecked(true);
+//                    postToast("Not connected to server");
+//                    break;
+//                }
+//                else {
+//                    request = "backButton";
+//                    startVideo(URL1);
+//                    nextDot.setChecked(false);
+//                    backDot.setChecked(true);
+//                    break;
+//                }
 
             case R.id.nextButton:
-                if(!server_status) {
-                    backDot.setChecked(true);
-                    nextDot.setChecked(false);
-                    postToast("Not connected to server");
-                    break;
-                }
-                else {
-                    request = "nextButton";
-                    backDot.setChecked(false);
-                    nextDot.setChecked(true);
-                    break;
-                }
+                request = "nextButton";
+                startVideo(URL2);
+                backDot.setChecked(false);
+                nextDot.setChecked(true);
+                break;
+//                if(!server_status) {
+//                    backDot.setChecked(true);
+//                    nextDot.setChecked(false);
+//                    postToast("Not connected to server");
+//                    break;
+//                }
+//                else {
+//                    request = "nextButton";
+//                    startVideo(URL2);
+//                    backDot.setChecked(false);
+//                    nextDot.setChecked(true);
+//                    break;
+//                }
 
             case R.id.systemHaltButton:
                 if(!server_status) {
