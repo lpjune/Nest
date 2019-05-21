@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // ip of flask web server video
         String URL1 = "http://192.168.0.101:65432/video_feed1";
         String URL2 = "http://192.168.0.101:65432/video_feed2";
-        startVideo(URL1);
+
     }
 
     @Override
@@ -404,7 +404,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final EditText ip_text = connect_menu.findViewById(R.id.ipconnectText);
         final EditText port_text = connect_menu.findViewById(R.id.portconnectText);
 
-        ip_text.setText("192.168.0.5");
+        ip_text.setText("192.168.0.101");
         port_text.setText("65432");
 
         Button ip_button = connect_menu.findViewById(R.id.ipConnectBtn);
@@ -417,11 +417,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onClick(View v) {
                 String return_ip = ip_text.getText().toString();
                 String return_port = port_text.getText().toString();
+                // EX:  "http://192.168.0.101:65432/"
+                String web_url = "http://" + return_ip + ":" + return_port + "/";
+                // EX:  "http://192.168.0.101:65432/video_feed1"
+                String feed1_url = web_url + "video_feed1";
 
                 TcpClient.getSERVER_IP(return_ip);
                 TcpClient.getSERVER_PORT(return_port);
 
                 connectToServer();
+                startVideo(feed1_url);
+
                 alertDialog.dismiss();
             }
         });
