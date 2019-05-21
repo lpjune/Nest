@@ -115,8 +115,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         raisePadSwitch.setOnClickListener(this);
 
         // ip of flask web server video
-        String URL1 = "http://192.168.0.100:5000/video_feed1";
-        String URL2 = "http://192.168.0.100:5000/video_feed2";
+        String URL1 = "http://192.168.0.101:65432/video_feed1";
+        String URL2 = "http://192.168.0.101:65432/video_feed2";
         startVideo(URL1);
     }
 
@@ -181,8 +181,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         String request = "";
-        String URL1 = "http://192.168.0.100:5000/video_feed1";
-        String URL2 = "http://192.168.0.100:5000/video_feed2";
+        String URL1 = "http://192.168.0.101:65432/video_feed1";
+        String URL2 = "http://192.168.0.101:65432/video_feed2";
         // switch case for different buttons
         switch(v.getId()) {
             case R.id.doorsSwitch:
