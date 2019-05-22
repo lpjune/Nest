@@ -22,6 +22,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.RadioButton;
+
+import com.example.nest.StreamClient.StreamClient;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ArrayList<String> arrayList;
     private ClientListAdapter mAdapter;
     private TcpClient mTcpClient;
+    private StreamClient mStreamClient;
 
     private boolean server_status;
     private boolean on_off_status;
@@ -403,16 +406,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onClick(View v) {
                 String return_ip = ip_text.getText().toString();
                 String return_port = port_text.getText().toString();
-                // EX:  "http://192.168.0.101:65432/"
-                String web_url = "http://" + return_ip + ":" + return_port + "/";
-                // EX:  "http://192.168.0.101:65432/video_feed1"
-                String feed1_url = web_url + "video_feed1";
 
                 TcpClient.getSERVER_IP(return_ip);
                 TcpClient.getSERVER_PORT(return_port);
+                StreamClient.getSERVER_IP(return_ip);
+                StreamClient.getSERVER_PORT(return_port);
 
                 connectToServer();
-                startVideo(feed1_url);
+                mStreamClient.startVideo(mStreamClient.video_1, MainActivity.this);
 
                 alertDialog.dismiss();
             }
