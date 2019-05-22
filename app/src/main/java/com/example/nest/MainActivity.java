@@ -1,10 +1,6 @@
 package com.example.nest;
 
-import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.StrictMode;
 
@@ -24,21 +20,11 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.MediaController;
 import android.widget.PopupMenu;
 import android.widget.RadioButton;
-import androidx.appcompat.widget.SwitchCompat;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.VideoView;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.InetAddress;
-import java.net.Socket;
-import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
