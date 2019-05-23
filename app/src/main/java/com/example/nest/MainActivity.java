@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mList = findViewById(R.id.list);
         mAdapter = new ClientListAdapter(this, arrayList);
         mList.setAdapter(mAdapter);
+        mStreamClient = new StreamClient(this);
 
         logView = findViewById(R.id.logView);
         connectionView = findViewById(R.id.connectionView);
@@ -103,9 +104,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         extendPadSwitch.setOnClickListener(this);
         raisePadSwitch.setOnClickListener(this);
 
-        // ip of flask web server video
-        String URL1 = "http://192.168.0.101:65432/video_feed1";
-        String URL2 = "http://192.168.0.101:65432/video_feed2";
+
 
     }
 
@@ -116,20 +115,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // disconnect
         mTcpClient.stopClient();
         mTcpClient = null;
-    }
-
-    private void startVideo(String url) {
-        try {
-            WebView myBrowser=(WebView)findViewById(R.id.webView);
-            WebSettings websettings = myBrowser.getSettings();
-            websettings.setSupportZoom(true);
-            websettings.setBuiltInZoomControls(true);
-            websettings.setJavaScriptEnabled(true);
-            myBrowser.setWebViewClient(new WebViewClient());
-            myBrowser.loadUrl(url);
-        } catch(Exception e) {
-            postToast("Could not get video: " + e);
-        }
     }
 
     private void connectToServer() {
@@ -170,8 +155,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         String request = "";
-        String URL1 = "http://192.168.0.101:65432/video_feed1";
-        String URL2 = "http://192.168.0.101:65432/video_feed2";
         // switch case for different buttons
         switch(v.getId()) {
             case R.id.doorsSwitch:
@@ -224,7 +207,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.backButton:
                 request = "backButton";
-                startVideo(URL1);
+                mStreamClient.previousCamera();
                 nextDot.setChecked(false);
                 backDot.setChecked(true);
                 break;
@@ -244,7 +227,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.nextButton:
                 request = "nextButton";
-                startVideo(URL2);
+                mStreamClient.nextCamera();
                 backDot.setChecked(false);
                 nextDot.setChecked(true);
                 break;
@@ -413,7 +396,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 StreamClient.getSERVER_PORT(return_port);
 
                 connectToServer();
-                mStreamClient.startVideo(mStreamClient.video_1, MainActivity.this);
+                mStreamClient.startVideo();
 
                 alertDialog.dismiss();
             }
