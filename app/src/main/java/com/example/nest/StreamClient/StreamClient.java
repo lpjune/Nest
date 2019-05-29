@@ -20,7 +20,7 @@ public class StreamClient {
     private static String SERVER_IP;
     private static int SERVER_PORT;
     /// EX:  "http://192.168.0.101:65432/video_feed1"
-    private static String web_url = "http://" + SERVER_IP + ":" + SERVER_PORT + "/video_feed";
+
     private String[] cameras = new String[]{"1", "2"};
     public int current_camera = 0;
 
@@ -34,6 +34,7 @@ public class StreamClient {
 
     public void startVideo() {
         try {
+            String web_url = "http://" + this.SERVER_IP + ":" + this.SERVER_PORT + "/video_feed";
             String url = web_url + this.cameras[this.current_camera];
             WebView myBrowser= (this.activity).findViewById(R.id.webView);
             WebSettings websettings = myBrowser.getSettings();

@@ -376,7 +376,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final EditText ip_text = connect_menu.findViewById(R.id.ipconnectText);
         final EditText port_text = connect_menu.findViewById(R.id.portconnectText);
 
-        ip_text.setText("192.168.0.101");
+        ip_text.setText("172.18.116.100");
         port_text.setText("65432");
 
         Button ip_button = connect_menu.findViewById(R.id.ipConnectBtn);
