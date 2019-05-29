@@ -1,10 +1,6 @@
 package com.example.nest;
 
-import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.StrictMode;
 
@@ -24,21 +20,13 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.MediaController;
 import android.widget.PopupMenu;
 import android.widget.RadioButton;
-import androidx.appcompat.widget.SwitchCompat;
+
+import com.example.nest.StreamClient.StreamClient;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.VideoView;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.InetAddress;
-import java.net.Socket;
-import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -55,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ArrayList<String> arrayList;
     private ClientListAdapter mAdapter;
     private TcpClient mTcpClient;
+    private StreamClient mStreamClient;
 
     private boolean server_status;
     private boolean on_off_status;
@@ -84,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mList = findViewById(R.id.list);
         mAdapter = new ClientListAdapter(this, arrayList);
         mList.setAdapter(mAdapter);
+        mStreamClient = new StreamClient(this);
 
         logView = findViewById(R.id.logView);
         connectionView = findViewById(R.id.connectionView);
@@ -114,9 +104,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         extendPadSwitch.setOnClickListener(this);
         raisePadSwitch.setOnClickListener(this);
 
-        // ip of flask web server video
-        String URL1 = "http://192.168.0.101:65432/video_feed1";
-        String URL2 = "http://192.168.0.101:65432/video_feed2";
+
 
     }
 
@@ -127,20 +115,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // disconnect
         mTcpClient.stopClient();
         mTcpClient = null;
-    }
-
-    private void startVideo(String url) {
-        try {
-            WebView myBrowser=(WebView)findViewById(R.id.webView);
-            WebSettings websettings = myBrowser.getSettings();
-            websettings.setSupportZoom(true);
-            websettings.setBuiltInZoomControls(true);
-            websettings.setJavaScriptEnabled(true);
-            myBrowser.setWebViewClient(new WebViewClient());
-            myBrowser.loadUrl(url);
-        } catch(Exception e) {
-            postToast("Could not get video: " + e);
-        }
     }
 
     private void connectToServer() {
@@ -181,8 +155,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         String request = "";
-        String URL1 = "http://192.168.0.101:65432/video_feed1";
-        String URL2 = "http://192.168.0.101:65432/video_feed2";
         // switch case for different buttons
         switch(v.getId()) {
             case R.id.doorsSwitch:
@@ -235,7 +207,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.backButton:
                 request = "backButton";
-                startVideo(URL1);
+                mStreamClient.previousCamera();
                 nextDot.setChecked(false);
                 backDot.setChecked(true);
                 break;
@@ -255,7 +227,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.nextButton:
                 request = "nextButton";
-                startVideo(URL2);
+                mStreamClient.nextCamera();
                 backDot.setChecked(false);
                 nextDot.setChecked(true);
                 break;
@@ -404,7 +376,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final EditText ip_text = connect_menu.findViewById(R.id.ipconnectText);
         final EditText port_text = connect_menu.findViewById(R.id.portconnectText);
 
-        ip_text.setText("192.168.0.101");
+        ip_text.setText("172.18.116.100");
         port_text.setText("65432");
 
         Button ip_button = connect_menu.findViewById(R.id.ipConnectBtn);
@@ -417,16 +389,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onClick(View v) {
                 String return_ip = ip_text.getText().toString();
                 String return_port = port_text.getText().toString();
-                // EX:  "http://192.168.0.101:65432/"
-                String web_url = "http://" + return_ip + ":" + return_port + "/";
-                // EX:  "http://192.168.0.101:65432/video_feed1"
-                String feed1_url = web_url + "video_feed1";
 
                 TcpClient.getSERVER_IP(return_ip);
                 TcpClient.getSERVER_PORT(return_port);
+                StreamClient.getSERVER_IP(return_ip);
+                StreamClient.getSERVER_PORT(return_port);
 
                 connectToServer();
-                startVideo(feed1_url);
+                mStreamClient.startVideo();
 
                 alertDialog.dismiss();
             }
